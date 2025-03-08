@@ -1,0 +1,18 @@
+<div class="selections">
+				<select id="lt_template_"
+					onchange="setCookie('template','lt_template_');displayTemplate();setSourceTemplate()" value="hello">
+					<option value="lt-default">Default</option>
+					<option value="lt-template2">Template 2</option>
+					<option value="lowerthird-2">Lowerthird 2</option>
+					<option value="lt-full">Full Screen</option>
+					<option value="template3">template3</option>
+					<option value="necrology">Necrological Service</option>
+					<option value="iwillgo">I Will Go</option>
+					<option value="ywop">Youth Week of Prayer</option>
+					<option value="laa">LAA</option>
+				</select>
+			</div>
+			<script>
+			    document.getElementById("lt_template_").value = getCookie('template')
+			    displayTemplate();
+			</script>

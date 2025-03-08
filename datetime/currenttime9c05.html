@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- Mirrored from media.laa.edu.ph/obs-tools/datetime/currenttime.html?screensize=720p&layer-name=Current%20Date&layer-width=1280&layer-height=720 by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Feb 2025 11:43:09 GMT -->
+<body>
+<div id="ttime">
+
+</div>
+<div id="b"></div>
+
+        <script>
+            myDate();
+            function myDate(){
+                const options2={ hour: 'numeric', minute: '2-digit'};//, second: '2-digit'
+                const options={year: 'numeric', month: 'short', day: 'numeric'};
+                
+                var today=new Date();
+
+                
+                
+var i= new Intl.DateTimeFormat('en-US',options2)
+                document.getElementById("ttime").innerHTML="<div class='date'>" + today.toLocaleDateString("en-US",options) + "</div><div class='time'>" + i.format(today) + "</div>";
+            }
+            setInterval(myDate, 100);
+        </script>
+        <style>
+            body {
+    font-family: "roboto";
+}
+div#ttime {
+    position: absolute;
+    bottom: 0px;
+    padding: 0;
+    background: #111;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    width: 140px;
+    padding: 20px 0;
+}
+div#ttime > div {
+    position: relative;
+    z-index: 1;
+}
+div#ttime .date {
+    font-weight: 700;
+}
+div#ttime::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 7px;
+    height: 100%;
+    top: 0;
+    background: #710b0b;
+}
+div#ttime::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-left: 70px solid transparent;
+    border-right: 70px solid #22222260;
+    border-top: 52px solid transparent;
+    border-bottom: 52px solid #22222260;
+}
+
+div#b {
+    position: absolute;
+    background: #333;
+    bottom: 0;
+    height: 4px;
+    width: 100%;
+    left: 0;
+    z-index: -1;
+}
+        </style>
+    </body>
+
+<!-- Mirrored from media.laa.edu.ph/obs-tools/datetime/currenttime.html?screensize=720p&layer-name=Current%20Date&layer-width=1280&layer-height=720 by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Feb 2025 11:43:09 GMT -->
+</html>

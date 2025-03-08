@@ -1,0 +1,353 @@
+
+<!-- saved from url=(0068)https://media.laa.edu.ph/obs-tools/lower%20thirds/templates/laa.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><style>
+
+    /*main CSS*/
+
+    section#laa-lowerthird {
+        margin-bottom: 0;
+        margin-left: 40px;
+        align-items: center;
+    }
+    div#logo {
+        width: 180px;
+        background: #fff;
+        height: 180px;
+        border-radius: 100%;
+        border: 10px solid #feb800;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 2;
+    }
+    div#content-container {
+        min-width: calc(var(--name-width) + 100px);
+        background: #ffffff;
+        border-bottom-right-radius: 70px;
+        border-top-right-radius: 70px;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        padding: 15px 55px 15px 130px;
+        min-height: 110px;
+        align-content: center;
+    }
+    div#content-outer-container {
+        margin-left: -100px;
+        padding: 100px 40px 100px 0;
+        overflow: hidden;
+        border-radius: 0 1170px 1170px 0;
+    }
+    
+    div#content-container::after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        height: 100%;
+        width: calc(100% + 15px);
+        background: #0b235b;
+        z-index: -3;
+        top: 10px;
+        border-bottom-right-radius: 70px;
+        border-top-right-radius: 70px;
+    }
+    div#m-name-inner,div#m-name-inner-basis {
+        color: #0a2054;
+        font-size: 60px;
+        line-height: 1em;
+        font-family: var(--name-font);
+        text-transform: uppercase;
+        padding: 20px 0px;
+        position: relative;
+    }
+    .function-container {
+        font-size: 40px;
+        position: absolute;
+        bottom: -20px;
+        transform: translate(0%, 50%);
+        display: flex;
+        align-items: flex-end;
+        gap: 10px;
+        right: 0;
+        flex-grow: 1;
+        width: 100%;
+        justify-content: flex-end;
+    }
+    div#m-function-inner {
+        font-family: var(--function-font);
+        font-size: 40px;
+        color: #dfa200;
+        color: #dfa200;
+        background: #0b2257;
+        padding: 10px 40px;
+        border-radius: 100px;
+        border: 8px solid #feb800;
+    }
+    .objects-container {
+        position: absolute;
+        top: -30px;
+        left: 100px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .line-1 {
+        height: 15px;
+        background: #fea600;
+        width: 200px;
+        border-radius: 20px;
+    }
+    .circle-1, .circle-2 {
+        width: 15px;
+        height: 15px;
+        background: #fea600;
+        border-radius: 15px;
+    }
+    .circle-3, .circle-4 {
+        width: 20px;
+        height: 20px;
+        border-radius: 15px;
+        background: #fea600;
+        margin-bottom: 20px;
+    }
+    .objects-container-2 {
+        width: 50px;
+        margin-right: 0;
+        display: flex;
+        gap: 10px;
+    }
+    .line-2 {
+        width: 100%;
+        height: 10px;
+        background: #1a6b93;
+        margin-bottom: 23px;
+        border-radius: 20px;
+    }
+    .objects-container-3 {
+        width: 110px;
+        flex-shrink: 1;
+        align-items: flex-end;
+        display: flex;
+        justify-content: end;
+    }
+
+    div#m-name-inner-basis {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        z-index: -111111111111;
+    }
+
+
+
+
+
+    
+    /*CSS styling & transition when hidden */
+
+    .animateOut div#logo {
+        transform: scale(.5);
+        opacity: 0;
+        transition: 300ms ease-in-out;
+        transition-delay: .6s;
+    }
+    .animateOut div#logo img {
+        transform: scale(1);
+        transition: 300ms ease-in-out;
+        transition-delay: 300ms;
+    }
+    .animateOut div#content-outer-container {
+        max-width: 0px;
+        padding: 100px 0px 100px 0;
+        transition: 600ms ease-in-out;
+    }
+    .animateOut div#m-name-inner {
+        top: 10px;
+        position: relative;
+        opacity: 0;
+    }
+    .animateOut .function-container {
+        right: 120px;
+        opacity: 0;
+        transition: 400ms ease-in-out;
+    }
+    .animateOut .line-1 {
+        width: 0;
+        transition: 300ms ease-in-out;
+    }
+    .animateOut .circle-1, .animateOut .circle-2 {
+        width: 0;
+        height: 0;
+        transition: 300ms ease-in-out;
+    }
+    .animateOut div#content-container::after {
+        left: -100px;
+        transition: 500ms ease-in-out;
+    }
+    .animateOut div#content-container::after {
+        left: -100%;
+        transition: 500ms ease-in-out;
+    }
+    .animateOut .line-2 {
+        width: 0;
+        transition: 300ms ease-in-out;
+    }
+    .animateOut .circle-3, .animateOut .circle-4 {
+        height: 0;
+        width: 0;
+        transition: 200ms ease-in-out;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    /*CSS styling & transition when shown */
+    .animateIn div#logo img {
+        transform: scale(2.8);
+        transition: 300ms ease-in-out;
+        transition-delay: 300ms;
+    }
+    .animateIn div#logo {
+        transform: scale(1);
+        opacity: 1;
+        transition: 300ms ease-in-out;
+    }
+    .animateIn div#content-outer-container {
+        max-width: 100%;
+        transition: 600ms ease-in-out;
+        transition-delay: 300ms;
+    }
+
+    .animateIn div#m-name-inner {
+        top: 0;
+        opacity: 1;
+        transition: 300ms ease-in-out;
+        transition-delay: 800ms;
+    }
+    .animateIn .function-container {
+        opacity: 1;
+        right: 0;
+        transition: 600ms ease-in-out;
+        transition-delay: 1000ms;
+    }
+    .animateIn .line-1 {
+        transition: 600ms ease-in-out;
+        width: 200px;
+        transition-delay: 1300ms;
+    }
+    .animateIn .circle-1, .animateIn .circle-2 {
+        width: 15px;
+        height: 15px;
+        transition: 300ms ease-in-out;
+    }
+    .animateIn .circle-1{
+        transition-delay: 1900ms;
+    }
+    .animateIn .circle-2{
+        transition-delay: 2100ms;
+    }
+    .animateIn div#content-container::after {
+        left: 0;
+        transition: 600ms ease-in-out;
+        transition-delay: 1200ms;
+    }
+    .animateIn .line-2 {
+        width: 100%;
+        transition: 300ms ease-in-out;
+        transition-delay: 2000ms;
+    }
+    .animateIn .circle-3, .animateIn .circle-4 {
+        height: 20px;
+        width: 20px;
+        transition: 200ms ease-in-out;
+        transition-delay: 2100ms;
+        margin-left: 0;
+    }
+</style>
+
+</head><body><section id="laa-lowerthird" class="m_lowerthird">
+
+    <div id="logo"><img src="./laahtml_files/anniv2.png" width="100"></div>
+
+    <div id="content-outer-container">
+        <div id="content-container">
+            <div class="objects-container">
+                <div class="line-1"></div><div class="circle-1"></div><div class="circle-2"></div>
+            </div>
+            <div id="m-name-inner" class="m-name-inner">
+    
+                Name
+        
+            </div>
+        
+            <div class="function-container">
+                <div class="objects-container-3"><div class="line-2"></div></div>
+                <div id="m-function-inner" class="m-function-inner">
+        
+                    Function
+            
+                </div>
+                <div class="objects-container-2"><div class="circle-3"></div><div class="circle-4"></div></div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="m-name-inner-basis">
+        
+        
+
+    </div>
+
+
+</section>
+
+<script>
+// Function to copy text from #m-name-inner to #m-name-inner-basis
+function copyText() {
+  const sourceElement = document.querySelector('#m-name-inner');
+  const targetElement = document.querySelector('#m-name-inner-basis');
+  targetElement.innerText = sourceElement.innerText;
+}
+
+// Function to update CSS variable with the width of #m-name-inner-basis
+function updateWidth() {
+  const targetElement = document.querySelector('#m-name-inner-basis');
+  let width = targetElement.offsetWidth;
+  width = width < 800 ? 800 : width; // Set minimum width to 800px if less than 800px
+  document.querySelector('#lower-third').style.setProperty('--name-width', `${width}px`);
+}
+
+// Create a MutationObserver to monitor changes in #m-name-inner
+const observer = new MutationObserver(() => {
+  copyText();
+  updateWidth();
+});
+
+// Specify the target node and the type of mutations to observe
+const targetNode = document.querySelector('#m-name-inner');
+const config = { childList: true, subtree: true, characterData: true };
+
+// Start observing the target node
+observer.observe(targetNode, config);
+
+// Call updateWidth initially to set the variable at the start
+updateWidth();
+
+
+
+
+
+</script></body></html>

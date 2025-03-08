@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  
+<!-- Mirrored from media.laa.edu.ph/obs-tools/datetime/sunset.html?nday=i&lat= by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Feb 2025 11:43:10 GMT -->
+<head>
+    <script src="../common/js/cookies.js"></script>
+  </head>
+<body>
+
+<div id="tday"></div>
+
+
+<script>
+
+const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+
+const queryString = window.location.search;
+
+const urlParams = new URLSearchParams(queryString);
+
+const lat = urlParams.get('lat')
+
+const lng = urlParams.get('lng')
+
+const nday = urlParams.get('nday')
+
+var today=new Date();
+                //var theday=today.toLocaleDateString("en-US",options);
+var theday=today.getFullYear()  + "-" + (today.getMonth()+1) + "-" + today.getDate();
+
+
+var _now = new Date();
+//_now.setDate(_now.getDate() + 7);
+
+var thenextday=today;
+
+var thenext=theday;
+
+if(nday==null){
+    if(today.getDay()!=6 && today.getDay()!=5){
+        thenextday.setDate(today.getDate() + (5 - today.getDay()));
+    theday=thenextday.getFullYear()  + "-" + (thenextday.getMonth()+1) + "-" + thenextday.getDate();
+    }
+}else{
+    if(today.getDay()==6){
+    thenextday.setDate(today.getDate() + 6);
+    theday=thenextday.getFullYear()  + "-" + (thenextday.getMonth()+1) + "-" + thenextday.getDate();
+
+}else if(today.getDay()<=5){
+    thenextday.setDate(today.getDate() + (6 - today.getDay()));
+    theday=today.getFullYear()  + "-" + (today.getMonth()+1) + "-" + today.getDate();
+
+}
+}
+console.log(today.getDay())
+console.log(theday)
+var xmlhttp = new XMLHttpRequest();
+
+if( theday==""){
+    
+}
+console.log("theday: " + theday)
+var url = "https://api.sunrise-sunset.org/json?lat="+ lat +"&lng="+ lng +"&date="+theday;
+
+console.log(url)
+xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var myArr = this.responseText;
+    
+    myFunction(myArr)
+  
+  }
+};
+xmlhttp.open("GET.html", url, true);
+xmlhttp.send();
+
+function formatAMPM(date) {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
+
+
+function myFunction(arr) {
+  var out = "";
+  var i;
+  var jsontext=JSON.parse(arr)
+  
+  var utc_=new Date(theday + " " + jsontext.results.sunset + " UTC")
+    
+  var options = {timeZone, weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  var options2={timeZone, weekday: false, hour: 'numeric', minute: 'numeric',second: 'numeric',  hour12: true};
+
+  var timeStyle=document.getElementById("tday").style
+                timeStyle.fontFamily=getCookie('sunset_fontFam')
+                timeStyle.fontSize=getCookie('sunset_fontSize') + "px"
+                timeStyle.fontWeight=getCookie('sunset_fontWeight')
+                timeStyle.color=getCookie('sunset_fontColor')
+
+  document.getElementById("tday").innerHTML =utc_.toLocaleDateString("en-US", options) + "<span id='dtime'>" + utc_.toLocaleDateString("en-US", options2) + "</span>";
+  
+}
+</script>
+<style>
+  div#tday {
+    font-size: 30px;
+    font-family: sans-serif;
+ 
+}
+span#dtime {
+    display: block;
+    font-style: italic;
+    font-weight: 700;
+}
+body {
+    text-align: center;
+}
+</style>
+</body>
+
+<!-- Mirrored from media.laa.edu.ph/obs-tools/datetime/sunset.html?nday=i&lat= by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Feb 2025 11:43:10 GMT -->
+</html>

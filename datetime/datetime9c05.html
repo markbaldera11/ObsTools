@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- Mirrored from media.laa.edu.ph/obs-tools/datetime/datetime.html?screensize=720p&layer-name=Current%20Date&layer-width=1280&layer-height=720 by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Feb 2025 11:43:09 GMT -->
+<head>
+        <script src="../common/js/cookies.js"></script>
+    </head>
+    <body>
+<div id="ttime">
+
+</div>
+
+        <script>
+            myDate();
+            function myDate(){
+                var options={year: 'numeric', month: 'long', day: 'numeric'};
+                var today=new Date();
+                var timeStyle=document.getElementById("ttime").style
+                timeStyle.fontFamily=getCookie('currDate_fontFam')
+                timeStyle.fontSize=getCookie('currDate_fontSize') + "px"
+                timeStyle.fontWeight=getCookie('currDate_fontWeight')
+                timeStyle.color=getCookie('currDate_fontColor')
+                document.getElementById("ttime").innerHTML=today.toLocaleDateString("en-US",options);
+            }
+        </script>
+    </body>
+
+<!-- Mirrored from media.laa.edu.ph/obs-tools/datetime/datetime.html?screensize=720p&layer-name=Current%20Date&layer-width=1280&layer-height=720 by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Feb 2025 11:43:09 GMT -->
+</html>

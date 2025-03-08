@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+
+<!-- Mirrored from media.laa.edu.ph/obs-tools/lower thirds/browser-source.html?layer-name=LowerThirds%20720p&layer-width=1280&layer-height=720&screensize=720p by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Feb 2025 11:43:08 GMT -->
+<head>
+
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<link rel="stylesheet" href="../common/css/style-002.css">
+
+	<link rel="stylesheet" href="../common/css/style-new.css">
+
+	<link rel="stylesheet" href="../common/css/template2.css">
+
+	<link rel="stylesheet" href="../common/css/font.css">
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+
+	<script src="../common/js/cookies.js"></script>
+
+	<script src="../common/js/jquery.js"></script>
+
+	<title>Receiver demo</title>
+
+
+
+	<script>
+
+		//lowerthirds
+
+		var bc = new BroadcastChannel('obs-lower-thirds-channel');
+
+		bc.onmessage = function (ev) {
+
+			document.documentElement.style.setProperty('--lt-main-color', getCookie("main-color"));
+
+			document.documentElement.style.setProperty('--lt-main-color-2', getCookie("main-color-2"));
+
+			document.documentElement.style.setProperty('--lt-secondary-color', getCookie("secondary-color"));
+
+			document.documentElement.style.setProperty('--lt-secondary-color-2', getCookie("secondary-color-2"));
+
+			document.documentElement.style.setProperty('--lt-text-color', getCookie("text-color"));
+
+			document.documentElement.style.setProperty('--name-font', getCookie("nameFont"));
+
+			document.documentElement.style.setProperty('--function-font', getCookie("functionFont"));
+						
+			document.documentElement.style.setProperty('--background-image', `url('${getCookie("background-image")}')`);
+
+
+			var element = document.getElementsByTagName("body")[0];
+
+
+
+			received_data = ev.data.split("|");
+
+			ltTemplate = received_data[5];
+
+			ltype = received_data[4];
+
+			position = received_data[2];
+
+			animation = received_data[3];
+
+			document.getElementById("m-name-inner").innerHTML = received_data[0];
+
+			document.getElementById("m-function-inner").innerHTML = received_data[1];
+
+
+			//set font
+			var link = document.createElement('link');
+			link.href = 'https://fonts.googleapis.com/css2?family=' + getCookie("nameFont");
+			link.rel = 'stylesheet';
+			document.head.appendChild(link);
+
+			var link2 = document.createElement('link');
+			link2.href = 'https://fonts.googleapis.com/css2?family=' + getCookie("functionFont");
+			link2.rel = 'stylesheet';
+			document.head.appendChild(link2);
+
+
+
+
+			//additional stylings
+
+			//for additional templates, just add a new condition
+
+			if (ltTemplate == "lt-default") {
+
+
+
+			} else if (ltTemplate == "lt-template2") {
+
+				var w = (document.getElementById("lt-template2_name-container").clientWidth - document.getElementById(
+
+					"lt-template2_blank").clientWidth) + 30;
+
+				var h = (document.getElementById("lt-template2_name-container").clientHeight + 10) + (document
+
+					.getElementById("lt-template2_function-container").clientHeight / 2)
+
+				document.getElementById("lt-template2_vline").style.bottom = "-" + (h - 1) + "px"
+
+				if (animation == 'animateIn') {
+
+					document.getElementById("lt-template2_vline").style.height = h + "px"
+
+				} else {
+
+					document.getElementById("lt-template2_vline").style.height = "0px"
+
+				}
+
+
+
+				document.getElementById("lt-template2_function-container").style.flexBasis = w + "px"
+
+				document.getElementById("lt-template2_line-container").style.flexBasis = w + "px"
+
+			}
+
+
+
+			//classes
+
+			if (animation == 'animateIn') {
+
+				document.getElementById("lower-third").classList.remove("animateOut");
+
+				document.getElementById("lower-third").classList.remove("firstdisplay");
+
+				document.getElementById("lower-third").classList.add("animateIn");
+
+				element.classList.remove("ltype-redorange");
+
+				element.classList.remove("ltype-bluegold");
+
+				document.getElementsByTagName("body")[0].classList.add("ltype-" + ltype);
+
+			};
+
+			if (animation == 'animateOut') {
+
+				document.getElementById("lower-third").classList.remove("animateIn");
+
+				document.getElementById("lower-third").classList.add("animateOut");
+
+			};
+
+			if (position == 'left') {
+
+				document.getElementById("lower-third").classList.remove("right");
+
+				document.getElementById("lower-third").classList.add("left");
+
+			};
+
+			if (position == 'right') {
+
+				document.getElementById("lower-third").classList.remove("left");
+
+				document.getElementById("lower-third").classList.add("right");
+
+			};
+
+
+
+		}
+
+
+
+
+
+		//courtesy text
+
+		var screenTxt = new BroadcastChannel('screentext-channel');
+
+		screenTxt.onmessage = function (scTxt) {
+
+			received_data = scTxt.data.split("|");
+
+			if (received_data[2] == "displaytext") {
+
+				if (received_data[1] == "bottom") {
+
+					document.getElementById("screentext").classList.add("txtBottom")
+
+				} else {
+
+					document.getElementById("screentext").classList.remove("txtBottom")
+
+				}
+
+				document.getElementById("screentext").innerHTML = "<span>" + received_data[0] + "</span>";
+
+				document.getElementById("screentext").style.display = "flex";
+
+
+
+			} else {
+
+				document.getElementById("screentext").innerHTML = "";
+
+				document.getElementById("screentext").style.display = "none";
+
+			}
+
+
+
+
+
+		}
+
+
+
+		var SourceTemplateChannel = new BroadcastChannel('source-template-channel');
+
+		SourceTemplateChannel.onmessage = function (tmplt) {
+
+			received_data = tmplt.data;
+
+			setTemplate(received_data);
+
+		}
+
+	</script>
+
+</head>
+
+
+
+<body class="browser-source lower-thirds">
+
+	<style>
+
+		:root {
+
+			--lt-main-color: #4f0000;
+
+			--lt-main-color-2: #3e0000;
+
+			--lt-secondary-color: #f7941d;
+
+			--lt-secondary-color-2: #d67500;
+
+			--lt-text-color: #fff;
+
+		}
+
+	</style>
+
+	<script>
+
+		const queryString = window.location.search;
+
+
+
+		const urlParams = new URLSearchParams(queryString);
+
+
+
+		const size = urlParams.get('screensize')
+
+
+
+		var element = document.getElementsByTagName("body")[0];
+
+		element.classList.add("s" + size);
+
+	</script>
+
+	<div id="screentext" style="display: none;">
+
+
+
+	</div>
+
+	<div id="lower-third" class="left animateOut firstdisplay">
+
+
+
+	</div>
+
+	<script type='text/javascript'>
+
+		function setTemplate(tmplt) {
+
+			received_data = tmplt.split("|");
+
+			$.get('templates/' + getCookie('template') + '.html', function (response) {
+
+				$('#lower-third').html(response);
+
+				document.getElementById("m-name-inner").innerHTML = received_data[0];
+
+				document.getElementById("m-function-inner").innerHTML = received_data[1];
+
+				if(received_data.length==1){
+
+					document.getElementById("m-function-inner").innerHTML = "";
+
+				}
+
+			});
+
+		}
+
+		setTemplate('');
+
+	</script>
+
+	<script>
+
+		console.log(getCookie("template"))
+
+	</script>
+
+</body>
+
+
+
+
+<!-- Mirrored from media.laa.edu.ph/obs-tools/lower thirds/browser-source.html?layer-name=LowerThirds%20720p&layer-width=1280&layer-height=720&screensize=720p by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Feb 2025 11:43:09 GMT -->
+</html>

@@ -1,0 +1,2220 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+<head>
+
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Lower thirds control panel</title>
+
+	<link rel="stylesheet" href="style-002.css">
+
+	<script src="cookies.js"></script>
+
+	<script src="jquery.js"></script>
+
+	<script src="jscolor.js"></script>
+
+
+
+</head>
+
+
+
+<body class="lower-thirds-panel panel">
+
+	<script>
+
+		var counter = 0;
+
+	</script>
+
+	<div class="u-tab">
+
+		<ul>
+
+
+
+			<li id="tab-lowerthird" class="li-onethird active"
+				onclick="tabclick('Lower Thirds');document.getElementById('tab-lowerthird').classList.add('active')">
+
+				Lower Thirds</li>
+
+			<li id="tab-speaker" class="li-onethird"
+				onclick="tabclick('Speaker');document.getElementById('tab-speaker').classList.add('active')">Others</li>
+
+			<li id="tab-others" class="li-onethird"
+				onclick="tabclick('Music');document.getElementById('tab-others').classList.add('active')">Live</li>
+
+		</ul>
+
+	</div>
+
+	<div id="importbox" style="display:none;">
+
+		<textarea id="importText"></textarea>
+
+		<script>
+
+			document.getElementById("importText").value = getCookie('importbox');
+
+		</script>
+
+		<div></div>
+
+		<!-- <button class="onethird" id="sender" onclick="setCookie('importbox','importText')">Save</button> -->
+
+		<button class="onethird" id="sender"
+			onclick="function_import();setCookie('importbox','importText')">Import</button>
+
+		<button class="onethird" id="sender" onclick="document.getElementById('importText').value='';">Clear</button>
+
+		<button class="onethird" id="sender"
+			onclick="document.getElementById('importbox').style.display='none'">Close</button>
+
+	</div>
+
+
+
+	<div class="static-panel-top">
+
+		<div id="t-lowerthird" class="d-view">
+
+			<input id="lower-thirds-name" placeholder="Name" onchange="$('li.f-selected').removeClass('f-selected');">
+
+			<input id="lower-thirds-function" placeholder="Function"
+				onchange="$('li.f-selected').removeClass('f-selected');">
+
+			<button class="onethird" id="sender" onclick="function_send()">Show</button>
+
+			<button class="onethird" id="sender" onclick="function_hide()">Hide</button>
+
+			<!-- <button class="onethird" id="" onclick="location.reload()">Refresh</button> -->
+
+			<button class="onethird" id=""
+				onclick="document.getElementById('importbox').style.display='block';show_importtemplate()">Import</button>
+
+			<div class="radio-position" style="display:none;">
+
+				<input type="radio" name="radio-group-position" id="position-left" checked="checked" /><label
+					for="position-left">Left</label>
+
+				<input type="radio" name="radio-group-position" id="position-right" /><label
+					for="position-right">Right</label>
+
+			</div>
+
+
+
+
+
+			<div class="lowerthird-type" style="display:none">
+
+				<input type="radio" name="radio-lower-type" id="lower-type-redorange" checked="checked" /><label
+					for="lower-type-redorange">Red Orange</label><br>
+
+				<input type="radio" name="radio-lower-type" id="lower-type-bluegold" /><label
+					for="lower-type-bluegold">Blue Gold</label>
+
+			</div>
+
+			<div style="clear:both"></div>
+
+
+
+
+
+			<h3 style="display: flex;align-items: center;justify-content: space-between;">
+
+				<div>Lowerthirds list</div>
+
+				<button class="setting-icon" onclick="toggleSettings()">
+
+					<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="15" height="15" viewBox="0 0 172 172"
+						style=" fill:#000000;">
+
+						<g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+							stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+							font-family="none" font-weight="none" font-size="none" text-anchor="none"
+							style="mix-blend-mode: normal">
+
+							<path d="M0,172v-172h172v172z" fill="none"></path>
+
+							<g fill="#ffffff">
+
+								<path
+									d="M69.27311,14.33333l-3.51335,18.08464c-5.90653,2.22752 -11.33046,5.34987 -16.08301,9.25228l-17.37077,-5.99089l-16.74089,28.97461l13.91341,12.09375c-0.53487,3.28395 -0.81185,6.32717 -0.81185,9.25228c0,2.9295 0.28528,5.96715 0.81185,9.25228v0.014l-13.91341,12.09375l16.74089,28.96061l17.35677,-5.97689c4.75299,3.90454 10.18919,7.00948 16.097,9.23828l3.51335,18.08464h33.45377l3.51335,-18.08464c5.91039,-2.22897 11.32824,-5.34628 16.083,-9.25227l17.37077,5.99088l16.72689,-28.96061l-13.89941,-12.10775c0.53486,-3.28395 0.81185,-6.32717 0.81185,-9.25228c0,-2.92072 -0.27857,-5.95999 -0.81185,-9.23828v-0.014l13.91341,-12.10775l-16.74088,-28.96061l-17.35678,5.97689c-4.75298,-3.90453 -10.18919,-7.00948 -16.097,-9.23828l-3.51335,-18.08464zM81.08691,28.66667h9.82617l2.78548,14.33333l7.47461,2.82747c4.50543,1.69806 8.5533,4.02927 12.06575,6.91471l6.18685,5.06706l13.77344,-4.73112l4.91308,8.49642l-11.00195,9.57422l1.25976,7.88054v0.014c0.43823,2.68706 0.62989,4.94121 0.62989,6.9567c0,2.0155 -0.19164,4.26931 -0.62989,6.9567l-1.27376,7.88053l11.00195,9.57422l-4.91309,8.51042l-13.75944,-4.74511l-6.20084,5.08105c-3.51245,2.88544 -7.54633,5.21665 -12.05175,6.91472h-0.014l-7.4746,2.82747l-2.78548,14.33333h-9.81218l-2.78548,-14.33333l-7.47461,-2.82747c-4.50544,-1.69806 -8.5533,-4.02927 -12.06575,-6.91472l-6.18685,-5.06706l-13.77344,4.73112l-4.91309,-8.49642l11.01595,-9.58822l-1.27376,-7.85254v-0.014c-0.43195,-2.69874 -0.62988,-4.95921 -0.62988,-6.9707c0,-2.0155 0.19165,-4.26931 0.62988,-6.9567l1.27376,-7.88053l-11.01595,-9.57422l4.91309,-8.51042l13.77344,4.74512l6.18685,-5.08105c3.51245,-2.88545 7.56032,-5.21665 12.06575,-6.91471l7.47461,-2.82747zM86,57.33333c-15.74175,0 -28.66667,12.92492 -28.66667,28.66667c0,15.74175 12.92492,28.66667 28.66667,28.66667c15.74175,0 28.66667,-12.92492 28.66667,-28.66667c0,-15.74175 -12.92492,-28.66667 -28.66667,-28.66667zM86,71.66667c7.96559,0 14.33333,6.36775 14.33333,14.33333c0,7.96559 -6.36775,14.33333 -14.33333,14.33333c-7.96559,0 -14.33333,-6.36775 -14.33333,-14.33333c0,-7.96559 6.36775,-14.33333 14.33333,-14.33333z">
+
+								</path>
+
+							</g>
+
+						</g>
+
+					</svg>
+
+				</button>
+
+				<span id="theme_">default</span>
+
+			</h3>
+
+			<ul id="predefined">
+
+				<li class='notif'>Please Import Participants<br>format:<br>Name : Function</li>
+
+
+
+
+
+			</ul>
+
+
+
+
+
+
+
+		</div>
+
+
+
+		<div id="t-others">
+
+			<div class="panelspeaker section-container">
+
+				<div class="tab-headings" onclick="show_hideSections('speaker-section-content')">
+
+					<h3 style="margin-top: 0;">Speaker</h3>
+
+				</div>
+
+				<div id="speaker-section-content" class="speaker-section section-content section-show">
+
+					<div style="margin-bottom: 20px;">
+
+						<span style="cursor: pointer;" onclick="fnc_dt('speaker');function_send()">Show
+
+							Speaker</span><span class="sclear"
+							onclick="document.getElementById('display-speaker').value=''; document.getElementById('display-speaker-pos').value=''; function_send_speaker()">clear</span>
+
+					</div>
+
+					<span id="pspeaker" style="display: none;">
+
+						<div id="pspeakername" class="name"></div>
+
+						<div id="pspeakerfunction" class="function">
+
+
+
+						</div>
+
+					</span>
+
+					<input id="display-speaker" class="for-speaker" placeholder="Speaker"
+						onchange="function_send_speaker()">
+
+					<input id="display-speaker-pos" class="for-speaker" placeholder="Designation"
+						onchange="function_send_speaker()">
+
+					<button class="copy_speakerCSS" id="sender">Copy Custom CSS</button>
+
+				</div>
+
+
+
+			</div>
+
+			<div id="screentext-section" class="section-container">
+
+				<div class="tab-headings" onclick="show_hideSections('screentext-section-content')">
+
+					<h3>On-Screen Text</h3>
+
+				</div>
+
+				<div id="screentext-section-content" class="screentext-section section-content">
+
+					<input id="display-screentext" class="for-screen" placeholder="Courtesy of...">
+
+					<button class="onehalf" id="sender" onclick="function_send_screenText('top')">Show</button>
+
+					<button class="onehalf showbottom" id="sender" onclick="function_send_screenText('bottom')">Show
+
+						(bottom)</button>
+
+					<div style="clear: both;"></div>
+
+					<button class="" id="sender" onclick="function_hide_screenText()">Hide</button>
+
+					<div style="clear: both;"></div>
+
+				</div>
+
+			</div>
+
+			<div id="sunset-section" class="section-container">
+
+				<div class="tab-headings" onclick="show_hideSections('sunset-section-content')">
+
+					<h3>Sunset Table</h3>
+
+				</div>
+
+				<div id="sunset-section-content" class="sunset-section section-content">
+
+					<select id="ilocs" onchange="getLocs()">
+
+						<option value="">Select</option>
+
+						<option value="manila_ncr">Manila</option>
+
+						<option value="sanpablo_calabarzon">San Pablo City</option>
+
+						<option value="tuguegarao_cagval">Tuguegarao</option>
+
+						<option value="baguio_car">Baguio City</option>
+
+						<option value="naga_camsur">Naga City</option>
+
+					</select>
+
+					<input id="loc-latitude" class="for-latitude" placeholder="Latitude"
+						onchange="setCookie('locLatitude','loc-latitude')">
+
+					<input id="loc-longitude" class="for-longitude" placeholder="Longitude"
+						onchange="setCookie('locLongitude','loc-longitude')">
+
+					<a class="aloc" href="https://sunrise-sunset.org/search?location=manila#locationfacts"
+						target="_blank">More Locations</a>
+
+					<script>
+
+						document.getElementById("loc-latitude").value = getCookie('locLatitude')
+
+						document.getElementById("loc-longitude").value = getCookie('locLongitude')
+
+						document.getElementById("ilocs").value = getCookie('locName');
+
+						if (document.getElementById("ilocs").value == "") {
+
+							document.getElementById("loc-latitude").readOnly = false
+
+							document.getElementById("loc-longitude").readOnly = false
+
+						} else {
+
+							document.getElementById("loc-latitude").readOnly = true
+
+							document.getElementById("loc-longitude").readOnly = true
+
+						}
+
+					</script>
+
+				</div>
+
+			</div>
+
+			<div id="settings-section" class="section-container">
+
+				<div class="tab-headings" onclick="show_hideSections('settings-section-content')">
+
+					<h3>Settings</h3>
+
+				</div>
+
+				<div id="settings-section-content" class="settings-section section-content">
+
+					<a class="aloc" href="settings.html" target="_blank">
+
+						Open Settings
+
+					</a>
+
+				</div>
+
+
+
+			</div>
+
+		</div>
+
+		<div id="t-live">
+
+			<div class="panel-music">
+
+				<span style="display:none;">
+
+					<input id="display-music-title" placeholder="Song Title" type="text">
+
+					<input id="display-music-credits" placeholder="Music Credits" type="text">
+
+					<input id="display-music-singer" placeholder="Sung by:" type="text">
+
+					<button class="onethird" id="sender" onclick="function_send_Music()">Show</button>
+
+					<button class="onethird" id="sender" onclick="function_hide_music()">Hide</button>
+
+				</span>
+
+			</div>
+
+			<div id="browser-sources_" style="width:100%;">
+
+				<a href="browser-source.html?layer-name=LowerThirds 720p&layer-width=1280&layer-height=720&screensize=720p"
+					class="browser_drag_item obsLink" draggable="true" id="blt720" onclick="ilink('blt720')">Lowerthirds
+
+					720p</a>
+
+				<a href="browser-source.html?layer-name=LowerThirds 720p&layer-width=1280&layer-height=720&screensize=720p"
+					class="browser_drag_item obsLink" draggable="true" id="blt720" onclick="copyText('fbStar')">⭐</a>
+
+				<a href="browser-source.html?layer-name=LowerThirds 1920p&layer-width=1920&layer-height=1080&screensize=1080p"
+					class="browser_drag_item obsLink" draggable="true" id="blt1080"
+					onclick="ilink('blt1080')">Lowerthirds 1080p</a>
+
+				<a href="lower%20thirds/browser-source-speaker.html?screensize=720p&layer-name=Speaker 720p&layer-width=1280&layer-height=420"
+					class="browser_drag_item obsLink" draggable="true" id="bspk" onclick="ilink('bspk')">Speaker</a>
+
+				<a href="datetime/datetime.html?screensize=720p&layer-name=Current Date&layer-width=1280&layer-height=720"
+					class="browser_drag_item obsLink" draggable="true" id="bcntdate" onclick="ilink('bcntdate')">Current
+
+					Date</a>
+
+				<a href="datetime/currenttime.html?screensize=720p&layer-name=Current Date&layer-width=1280&layer-height=720"
+					class="browser_drag_item obsLink" draggable="true" id="blt720" onclick="ilink('blt720')">Clock</a>
+
+				<a href="datetime/currenttime_sec.html?screensize=720p&layer-name=Current Date&layer-width=1280&layer-height=720"
+					class="browser_drag_item obsLink" draggable="true" id="blt720" onclick="ilink('blt720')">Clock 2</a>
+
+				<h3>Sunset Table</h3>
+
+				<a href="" id="friSunset" class="browser_drag_item obsLink" draggable="true"
+					onclick="ilink('friSunset')">Friday Sunset</a>
+
+				<a href="" id="satSunset" class="browser_drag_item obsLink" draggable="true"
+					onclick="ilink('satSunset')">Saturday Sunset</a>
+
+				<br /><br />
+
+				<input type="text" value="" id="brwsrsrc" onclick="copyText('brwsrsrc')" readonly>
+
+				<span class="nte1">Copy and paste this URL into your streaming software or encoder's browser plugin.<br>
+
+					If you're using OBS (version 25+) and if the link starts with <code>http://</code>, drag a button
+
+					directly into your source.</span>
+
+			</div>
+
+
+
+			<div class="panel-others panel" style="margin:0;">
+
+				<script>
+
+					function setSunsetButton() {
+
+						document.getElementById("satSunset").href = "datetime/sunset.html?nday=i&lat=" + getCookie('locLatitude') +
+
+							"&lng=" + getCookie('locLongitude') + "&layer-name=Saturday Sunset " + getCookie('locName') +
+
+							"&layer-width=1280&layer-height=420"
+
+						document.getElementById("friSunset").href = "datetime/sunset.html?lat=" + getCookie('locLatitude') + "&lng=" +
+
+							getCookie('locLongitude') + "&layer-name=Friday Sunset " + getCookie('locName') +
+
+							"&layer-width=1280&layer-height=420"
+
+					}
+
+
+
+					function ilink(v) {
+
+						document.getElementById("brwsrsrc").value = document.getElementById(v).href;
+
+					}
+
+
+
+					function getLocs() {
+
+
+
+						if (document.getElementById("ilocs").value == "manila_ncr") {
+
+							document.getElementById("loc-latitude").value = "14.5907332"
+
+							document.getElementById("loc-longitude").value = "120.9809674"
+
+						} else if (document.getElementById("ilocs").value == "sanpablo_calabarzon") {
+
+							document.getElementById("loc-latitude").value = "14.088200637273108"
+
+							document.getElementById("loc-longitude").value = "121.3499000698417"
+
+						} else if (document.getElementById("ilocs").value == "tuguegarao_cagval") {
+
+							document.getElementById("loc-latitude").value = "17.6118858"
+
+							document.getElementById("loc-longitude").value = "121.7300377"
+
+						} else if (document.getElementById("ilocs").value == "baguio_car") {
+
+							document.getElementById("loc-latitude").value = "16.412007"
+
+							document.getElementById("loc-longitude").value = "120.5933937"
+
+						} else if (document.getElementById("ilocs").value == "naga_camsur") {
+
+							document.getElementById("loc-latitude").value = "13.6240122"
+
+							document.getElementById("loc-longitude").value = "123.1850318"
+
+						} else {
+
+							document.getElementById("loc-latitude").value = "14.5907332"
+
+							document.getElementById("loc-longitude").value = "120.9809674"
+
+						}
+
+
+
+
+
+
+
+						if (document.getElementById("ilocs").value == "") {
+
+							setCookie('locName', 'ilocs')
+
+							document.getElementById("loc-latitude").readOnly = false
+
+							document.getElementById("loc-longitude").readOnly = false
+
+						} else {
+
+							setCookie('locName', 'ilocs')
+
+							document.getElementById("loc-latitude").readOnly = true
+
+							document.getElementById("loc-longitude").readOnly = true
+
+						}
+
+
+
+						setCookie('locLatitude', 'loc-latitude');
+
+						setCookie('locLongitude', 'loc-longitude')
+
+						setSunsetButton();
+
+					}
+
+
+
+					function setFBTexts() {
+
+						var today = new Date();
+
+						//var theday=today.toLocaleDateString("en-US",options);
+
+						var tday = today.getDay();
+
+						var options = {
+
+							year: 'numeric',
+
+							month: 'long',
+
+							day: 'numeric'
+
+						};
+
+						var churchname = getCookie('churchname');
+
+						var cService = ""
+
+						//midweek
+
+						var cDesc = ""
+
+						//alert(today.getDate() + " " + today.getUTCMonth("january") + " " + today.getFullYear())
+
+						if (today.getDate() == "18" && today.getMonth() == "2" && today.getFullYear() == "2023") {
+
+							cService = "Youth Week of Prayer 2023 - Day 1";
+
+							cDesc = "\nDay 1: To Love is to Sacrifice"
+
+						} else if (today.getDate() == "19" && today.getMonth() == "2" && today.getFullYear() == "2023") {
+
+							cService = "Youth Week of Prayer 2023 - Day 2";
+
+							cDesc = "\nDay 2: To Love is to be Grateful"
+
+						} else if (today.getDate() == "20" && today.getMonth() == "2" && today.getFullYear() == "2023") {
+
+							cService = "Youth Week of Prayer 2023 - Day 3";
+
+							cDesc = "\nDay 3: To Love is to Forgive"
+
+						} else if (today.getDate() == "21" && today.getMonth() == "2" && today.getFullYear() == "2023") {
+
+							cService = "Youth Week of Prayer 2023 - Day 4";
+
+							cDesc = "\nDay 4: To Love is to Trust"
+
+						} else if (today.getDate() == "22" && today.getMonth() == "2" && today.getFullYear() == "2023") {
+
+							cService = "Youth Week of Prayer 2023 - Day 5";
+
+							cDesc = "\nDay 5: To Love is Obey"
+
+						} else if (today.getDate() == "23" && today.getMonth() == "2" && today.getFullYear() == "2023") {
+
+							cService = "Youth Week of Prayer 2023 - Day 6";
+
+							cDesc = "\nDay 6: To Love is to Worship"
+
+						} else if (today.getDate() == "24" && today.getMonth() == "2" && today.getFullYear() == "2023") {
+
+							cService = "Youth Week of Prayer 2023 - Day 7";
+
+							cDesc = "\nDay 7: To Love is to Share"
+
+						} else if (today.getDate() == "25" && today.getMonth() == "2" && today.getFullYear() == "2023") {
+
+							cService = "Youth Week of Prayer 2023 - Day 8";
+
+							cDesc = "\nDay 8: To Love is to Wait"
+
+						} else {
+
+
+
+
+
+							if (tday == 3) {
+
+								cService = "Midweek Prayer Meeting"
+
+							} else if (tday == 5) {
+
+								cService = "Vespers Service"
+
+							} else if (tday == 6) {
+
+								cService = "Sabbath Worship"
+
+								if (today.getHours() > 13) {
+
+									cService = "Sabbath Afternoon Worship"
+
+								}
+
+
+
+							}
+
+						}
+
+						document.getElementById("fbTitle").value = cService + " | " + today.toLocaleDateString("en-US", options);
+
+						document.getElementById("fbDesc").value = churchname + "\n" + cService + cDesc + "\n" + today.toLocaleDateString(
+
+							"en-US", options);
+
+					}
+
+				</script>
+
+				<span><input class="forFB" placeholder="Title" type="text" id="fbTitle" value=""
+						onclick="copyText('fbTitle')"></span>
+
+				<span><textarea class="forFB" placeholder="Say Something about this live video." id="fbDesc"
+						onclick="copyText('fbDesc')" value="" style="height:100px;"></textarea> </span>
+
+				<div class="nte">Click Textbox to Copy text.</div>
+
+				<button id="edtchurch" onclick="editcName()">Edit Church
+
+					Name</button>
+
+				<span id="copynotif"></span>
+
+				<span><input class="forFB" readonly id="fbStar" onclick="copyText('fbStar')"
+						value="During this broadcast, you can show your support to our Media Ministry by sending ⭐, a digital gift that will help in reaching out to others and share the gospel. Thank you and God bless!">
+				</span>
+
+			</div>
+
+			<script>
+
+				setFBTexts();
+
+				setSunsetButton();
+
+			</script>
+
+		</div>
+
+	</div>
+
+	<div class="setting-modal closed" id="setting-modal">
+
+		<button class="setting-close" onclick="toggleSettings()">Close</button>
+
+		<div id="modal-container">
+
+			<h3>Template</h3>
+
+			<div id="template-list">
+
+
+
+			</div>
+
+
+
+			<h3>Theme</h3>
+
+			<div class="selections"><input type="checkbox" id="autoChangeTheme"
+					onchange="setCookie('autoChange-Theme','autoChangeTheme');">
+
+				<div class="tooltip"><span class="tooltiptext">Auto change theme every Midweek, Vesper & Sabbath
+
+						Services. Just Add your theme.</span>Auto change Theme</div>
+
+			</div>
+
+			<script>
+
+
+
+
+
+			</script>
+
+			<h4>Colors</h4>
+			<div class="selections">
+
+
+
+				<select id="ltype_" onchange="setCookie('theme','ltype_'); displayTemplate(); setTheColors()">
+
+					<option value="">Default</option>
+
+					<option value="redorange">Red Orange</option>
+
+					<option value="bluegold">Blue Gold</option>
+
+					<option value="custom">Custom...</option>
+
+				</select>
+
+				<button class="themebutton closed" id="addnewtheme" onclick="addnewtheme()">Add New</button>
+
+				<button class="themebutton closed" id="deletetheme" onclick="deletetheme()">Delete</button>
+
+			</div>
+
+			<div id="custom-colors">
+
+				Main Color: <input id="main-color" value="#4f0000" data-jscolor="{}"
+					onchange="document.getElementById('ltype_').value='custom';setCookie('main-color','main-color');setCookie('theme','ltype_');setTheColors()">
+
+				Main Color(darker): <input id="main-color-2" value="#3e0000" data-jscolor="{}"
+					onchange="document.getElementById('ltype_').value='custom';setCookie('main-color-2','main-color-2');setCookie('theme','ltype_');setTheColors()">
+
+				Secondary Color: <input id="secondary-color" value="#f7941d" data-jscolor="{}"
+					onchange="document.getElementById('ltype_').value='custom';setCookie('secondary-color','secondary-color');setCookie('theme','ltype_');setTheColors()">
+
+				Secondary Color(darker): <input id="secondary-color-2" value="#d67500" data-jscolor="{}"
+					onchange="document.getElementById('ltype_').value='custom';setCookie('secondary-color-2','secondary-color-2');setCookie('theme','ltype_');setTheColors()">
+
+				Text Color: <input id="text-color" value="#fff" data-jscolor="{}"
+					onchange="document.getElementById('ltype_').value='custom';setCookie('text-color','text-color');setCookie('theme','ltype_');setTheColors()">
+
+			</div>
+
+			<div class="fonts">
+				<h4>Fonts</h4>
+				<div id="fontPreview">The quick brown fox jumps over the lazy dog.</div>
+				Name:
+				<select id="nameFont" class="fontSelect" onchange="updateFontPreview(this, 'nameFont')">
+					<!-- Options will be populated here -->
+				</select>
+
+				Function:
+				<select id="functionFont" class="fontSelect" onchange="updateFontPreview(this, 'functionFont')">
+					<!-- Options will be populated here -->
+				</select>
+
+
+
+				
+
+				<script>
+
+					
+
+					fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyDQ-HjlR5QdU_zL3jX_dkdIvbTSYe5SvPE')
+						.then(response => response.json())
+						.then(data => {
+							const fontSelects = document.querySelectorAll('.fontSelect');
+							data.items.forEach(font => {
+								const option = document.createElement('option');
+								option.value = font.family;
+								option.textContent = font.family;
+								option.style.fontFamily = font.family;
+								fontSelects.forEach(select => {
+									select.appendChild(option.cloneNode(true));
+								});
+							});
+							console.log(getCookie("nameFont"))
+							document.getElementById('nameFont').value = (getCookie("nameFont"));
+							document.getElementById('functionFont').value = (getCookie("functionFont"));
+						})
+						.catch(error => console.error('Error fetching Google Fonts:', error));
+
+					function updateFontPreview(selectElement, cookieName) {
+						const selectedFont = selectElement.value;
+						const fontPreview = document.getElementById('fontPreview');
+						fontPreview.style.fontFamily = selectedFont;
+
+						// Load the selected font
+						const link = document.createElement('link');
+						link.href = `https://fonts.googleapis.com/css2?family=${selectedFont.replace(/ /g, '+')}&display=swap`;
+						link.rel = 'stylesheet';
+						document.head.appendChild(link);
+
+						// Set the cookie
+						setCookie(cookieName, cookieName);
+					}
+					
+				</script>
+
+
+
+			</div>
+<!-- 
+			<div class="background" >
+				<h4 class="tooltip">Background<span class="tooltiptext">Select Image from the list or paste the link at the textbox below. You can also upload new image background</span>?</span>	</h4><div class="tooltidp"></div>
+				<select name="images"><option>select one</option><option value="10 Days of Prayer BG.jpg">10 Days of Prayer BG.jpg</option><option value="A rice field or nature scene without skyscrapers.jpg">A rice field or nature scene without skyscrapers.jpg</option><option value="download (39).jpg">download (39).jpg</option><option value="lowerthird-bg-sta-isabel-2.png">lowerthird-bg-sta-isabel-2.png</option><option value="lowerthird-bg-sta-isabel.png">lowerthird-bg-sta-isabel.png</option><option value="lowerthird-bg.png">lowerthird-bg.png</option></select>				<input type="text" class="bg" id="background-image" onchange="setCookie('background-image','background-image')">
+				    
+				
+				<script>document.getElementById('background-image').value = (getCookie("background-image"));</script>
+				
+				<script> 
+				document.querySelector('select[name="images"]').addEventListener('change', function() { 
+				    document.getElementById('background-image').value = window.location.href + 'backgrounds/' + this.value; 
+				    setCookie('background-image','background-image')
+				}); 
+				</script>
+				
+				<button onClick="document.getElementById('uploadForm').classList.remove('hide');" >Upload New Background</button>
+				
+				<form id="uploadForm" enctype="multipart/form-data" class="hide">
+                    <input type="file" name="image" id="image">
+                    <input type="submit" value="Upload">
+                </form>
+                <div id="message"></div>
+            
+                <script src="jquery-3.6.0.min.js"></script>
+				 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script src="upload.js"></script>
+			</div> -->
+
+    <div class="background">
+        <h4 class="tooltip">Background<span class="tooltiptext">Select Image from the list or paste the link at the textbox below. You can also upload new image background</span></h4>
+        <div class="tooltip"></div>
+        <select name="images">
+            <option>select one</option>
+            <option value="10 Days of Prayer BG.jpg">10 Days of Prayer BG.jpg</option>
+            <option value="A rice field or nature scene without skyscrapers.jpg">A rice field or nature scene without skyscrapers.jpg</option>
+            <option value="download (39).jpg">download (39).jpg</option>
+            <option value="lowerthird-bg-sta-isabel-2.png">lowerthird-bg-sta-isabel-2.png</option>
+            <option value="lowerthird-bg-sta-isabel.png">lowerthird-bg-sta-isabel.png</option>
+            <option value="lowerthird-bg.png">lowerthird-bg.png</option>
+        </select>
+        <input type="text" class="bg" id="background-image" onchange="setCookie('background-image', 'background-image')">
+
+        <script>
+            document.getElementById('background-image').value = (getCookie("background-image"));
+
+            document.querySelector('select[name="images"]').addEventListener('change', function() {
+                document.getElementById('background-image').value = window.location.href + 'backgrounds/' + this.value;
+                setCookie('background-image', 'background-image');
+            });
+        </script>
+
+        <button onClick="document.getElementById('uploadForm').classList.remove('hide');">Upload New Background</button>
+
+        <form id="uploadForm" enctype="multipart/form-data" class="hide">
+            <input type="file" name="image" id="image">
+            <input type="submit" value="Upload">
+        </form>
+        <div id="message"></div>
+    </div>
+	<script src="jquery-3.6.0.min.js"></script>
+    <script src="upload.js"></script>
+
+			
+			<div class="timeout">
+				<h4>Timeout</h4>
+				<div class="timeout-container"><input type="text" class="bg" id="lowerthird-timeout" onchange="setCookie('lowerthird-timeout','lowerthird-timeout')"><span> ms</span></div>
+				<script>document.getElementById('lowerthird-timeout').value = (getCookie("lowerthird-timeout"));</script>
+			</div>
+
+			<button class="onethird" id="" onclick="location.reload()">Refresh</button>
+
+			<button class="themebutton" id="reset" onclick="setCookie('themelist', '');addtoOptions();">Reset</button>
+
+		</div>
+
+	</div>
+
+	<script>
+
+		var sd_music = new BroadcastChannel('obs-music-display');
+
+
+
+		function function_send_Music() {
+
+
+
+			name_to_send = document.getElementById("display-music-title").value;
+
+			function_to_send = document.getElementById("display-music-credits").value;
+
+			music_singer = document.getElementById("display-music-singer").value;
+
+
+
+			if (name_to_send != "") {
+
+
+
+
+
+				sd_music.postMessage('animateIn|' + name_to_send + '|' + function_to_send + '|' + music_singer); /* send */
+
+			} else {
+
+				sd_music.postMessage(''); /* send */
+
+			}
+
+
+
+			setTimeout(function () {
+
+				function_hide_music();
+
+			}, 10000);
+
+		}
+
+
+
+		function function_hide_music() {
+
+			sd_music.postMessage('animateOut'); /* send - only last parameter*/
+
+		}
+
+	</script>
+
+
+
+	<script>
+
+		var sd = new BroadcastChannel('obs-speaker-display');
+
+
+
+		function function_send_speaker() {
+
+
+
+			name_to_send = document.getElementById("display-speaker").value;
+
+			function_to_send = document.getElementById("display-speaker-pos").value;
+
+			document.getElementById("pspeakername").innerHTML = name_to_send;
+
+			document.getElementById("pspeakerfunction").innerHTML = "MESSAGE";
+
+
+
+			if (name_to_send != "") {
+
+
+
+
+
+				sd.postMessage(name_to_send + '|' + function_to_send); /* send */
+
+			} else {
+
+				sd.postMessage(''); /* send */
+
+			}
+
+		}
+
+
+
+		function function_showHideSpeaker() {
+
+			if (document.getElementById("t-others").style.display == "block") {
+
+				document.getElementById("t-others").style.display = "none"
+
+			} else {
+
+				document.getElementById("t-others").style.display = "block"
+
+			}
+
+		}
+
+	</script>
+
+
+
+	<script>
+
+		function fnc_dt(v) {
+
+			$("li.f-selected").removeClass('f-selected');
+
+			$("#lower-thirds-name:text").val($("#p" + v + " .name").html());
+
+			$("#lower-thirds-function:text").val($("#p" + v + " .function").text());
+
+			document.getElementById("p" + v).classList.add("f-selected")
+
+		}
+
+
+
+		var bc = new BroadcastChannel('obs-lower-thirds-channel');
+
+
+
+		function function_send() {
+
+			name_to_send = $("#lower-thirds-name:text").val();
+
+			function_to_send = $("#lower-thirds-function:text").val();
+
+
+
+			if (name_to_send != "" && function_to_send != "") {
+
+				if (document.getElementById("position-left").checked == true) {
+
+					position = "left"
+
+				};
+
+				if (document.getElementById("position-right").checked == true) {
+
+					position = "right"
+
+				};
+
+
+
+				/*	if (document.getElementById("lower-type-redorange").checked == true) {ltype = "redorange"};
+
+					if (document.getElementById("lower-type-bluegold").checked == true) {ltype = "bluegold"};
+
+					*/
+
+
+
+				ltype = document.getElementById("ltype_").value
+
+				ltTemplate = document.getElementById("lt_template_").value
+
+				bc.postMessage(name_to_send + '|' + function_to_send + '|' + position + '|' + 'animateIn' + '|' + ltype +
+
+					'|' + ltTemplate); /* send */
+
+			}
+
+            if (getCookie('lowerthird-timeout') !== '0') {
+                setTimeout(function () {
+                    function_hide();
+                }, getCookie('lowerthird-timeout'));
+                console.log("OUT:" + getCookie('lowerthird-timeout'))
+            }else{
+                console.log("OUT zero:" + getCookie('lowerthird-timeout'))
+            }
+
+		
+
+		};
+
+
+
+		function function_hide() {
+
+			ltTemplate = document.getElementById("lt_template_").value
+
+			bc.postMessage(name_to_send + '|' + function_to_send + '|' + position + '|' + 'animateOut' + '|' + ltype + '|' +
+
+				ltTemplate); /* send - only last parameter*/
+
+		}
+
+
+
+		function show_importtemplate() {
+
+			var imp = document.getElementById('importText').value;
+
+			if (imp == "") {
+
+				var today = new Date();
+
+				//var theday=today.toLocaleDateString("en-US",options);
+
+				var tday = today.getDay();
+
+				var options = {
+
+					year: 'numeric',
+
+					month: 'long',
+
+					day: 'numeric'
+
+				};
+
+				var churchname = getCookie('churchname');
+
+				var cService = ""
+
+				//midweek
+
+				if (tday == 3) {
+
+					//Midweek Prayer Meeting
+
+					document.getElementById('importText').value =
+
+						'==Midweek Prayer Meeting\nname : Song Leader\nname : Opening Prayer\nname : Welcome Remarks\nname : Musical Offering\nname : MESSAGE\nSpeaker : Closing Prayer';
+
+
+
+				} else if (tday == 5) {
+
+					//Vespers Service
+
+					document.getElementById('importText').value =
+
+						'==Vespers Service\nname : Song Leader\nname : Opening Prayer\nname : Welcome Remarks\nname : Musical Offering\nname : MESSAGE\nSpeaker : Closing Prayer';
+
+				} else if (tday == 6) {
+
+
+
+					if (today.getHours() > 13) {
+
+						//Sabbath Afternoon Worship
+
+					} else {
+
+						//sabbath worship
+
+						document.getElementById('importText').value =
+
+							'==Sabbath School\nname : Song Leader\nname : Opening Prayer\nname : Welcome Remarks\nname : Musical Offering\nname : Mission Spotlight\nname : Musical Offering\nname : Lesson Review\nname : Closing Prayer\n==Divine\nname : Welcome & Announcements\nname : Call to Worship\n"Banal, Banal, Banal" : Introit\n"Itong Sabbath" : Sabbath Celebration Hymn\nSpeaker : Invocation\nname : Offertory Reading\n"Ang Ama ay Papurihan" : Doxology\nname : Offertory Blessings\nname : Hymn of Adoration\nname : The Written Word\n“Diyos Patnubayan Ang Aking Isipan” : Hymn of Preparation\nname : Pastoral Prayer\n“Ikaw Na Dumirinig Ng Hibik” : Response\nname : Message in Song\nname : The Spoken Word\nname : Appeal Song\nSpeaker : Benediction\n“Mayro’n Tayo Ng Pag-asang Ito” : Anthem of Hope';
+
+					}
+
+
+
+				} else {
+
+					document.getElementById('importText').value = '==Program\nBro. Juan Dela Cruz : Program Coordinator';
+
+
+
+				}
+
+
+
+			}
+
+		}
+
+
+
+		function showhide_list(num) {
+
+			var grp = document.getElementById("ul-group-" + num).style.display;
+
+			if (grp == "none") {
+
+				document.getElementById("ul-group-" + num).style.display = "block";
+
+			} else {
+
+				document.getElementById("ul-group-" + num).style.display = "none";
+
+			}
+
+		}
+
+
+
+		function function_import() {
+
+			var x = 0;
+
+
+
+			var imp = document.getElementById('importText').value.split("\n");
+
+			var importGroups = 0;
+
+			var groupCounter = 0;
+
+			var theImport = ""
+
+			while (x < imp.length) {
+
+				if (imp[x].length > 2) {
+
+					if (imp[x][0] + imp[x][1] == "==") {
+
+						if (importGroups > 0) {
+
+							theImport += "</ul>";
+
+							importGroups -= 1;
+
+						}
+
+						importGroups += 1;
+
+						theImport += '<li class="group-title" onclick="showhide_list(' + groupCounter + ')" id="li-group-' +
+
+							groupCounter + '">' + imp[x].replace("==", '') + '</li><ul id="ul-group-' + groupCounter +
+
+							'" class="function-group">';
+
+						groupCounter += 1;
+
+					} else {
+
+						var line = imp[x].split(" : ")
+
+						if (line[0] != "" && line[1] != "") {
+
+							theImport += '<li class="function-list" id="p' + x + '" onclick="fnc_dt(' + x +
+
+								')" ondblclick="function_send()"><span class="closeme" onclick="removeli(' + x +
+
+								')"></span><div class="li-container"><div class="name">' + line[0] +
+
+								'</div><div class="function">' + line[1] + '</div></div></li>';
+
+						}
+
+					}
+
+				}
+
+
+
+
+
+				x += 1
+
+			}
+
+			if (theImport == "") {
+
+				theImport = "<li class='notif'>Please Import Participants<br>format:<br>Name : Function</li>";
+
+			} else {
+
+				if (importGroups > 0) {
+
+					theImport += "</ul>";
+
+				}
+
+			}
+
+
+
+			document.getElementById('predefined').innerHTML = theImport;
+
+			document.getElementById('importbox').style.display = 'none';
+
+
+
+
+
+
+
+
+
+
+
+
+
+			function function_send_speaker3() {
+
+
+
+				name_to_send = $("#display-speaker:text").val();
+
+				function_to_send = $("#display-speaker-pos:text").val();
+
+				if (name_to_send != "" && function_to_send != "") {
+
+
+
+
+
+					sd.postMessage(name_to_send + '|' + function_to_send); /* send */
+
+				} else {
+
+					sd.postMessage(''); /* send */
+
+				}
+
+
+
+			};
+
+
+
+		}
+
+
+
+		function removeli(v) {
+
+			//document.getElementById("p" + v).style.display = "none"
+
+			document.getElementById("p" + v).classList.add('li-hidden')
+
+		}
+
+
+
+		function tabclick(v) {
+
+			document.getElementById('tab-lowerthird').classList.remove('active');
+
+			document.getElementById('tab-speaker').classList.remove('active');
+
+			document.getElementById('tab-others').classList.remove('active');
+
+			document.getElementById('t-lowerthird').classList.remove('d-view');
+
+			document.getElementById('t-others').classList.remove('d-view');
+
+			document.getElementById('t-live').classList.remove('d-view');
+
+
+
+			if (v == "Lower Thirds") {
+
+				document.getElementById('t-lowerthird').classList.add('d-view');
+
+			} else if (v == "Speaker") {
+
+				document.getElementById('t-others').classList.add('d-view');
+
+			} else if (v == "Music") {
+
+				document.getElementById('t-live').classList.add('d-view');
+
+			}
+
+		}
+
+
+
+		function copyText(v) {
+
+			/* Get the text field */
+
+			var copyText = document.getElementById(v);
+
+
+
+			/* Select the text field */
+
+			copyText.select();
+
+			//copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+
+
+			/* Copy the text inside the text field */
+
+			document.execCommand("copy");
+
+
+
+			/* Alert the copied text */
+
+			document.getElementById("copynotif").innerHTML = "Text Copied!";
+
+			document.getElementById("copynotif").classList.add('disp');
+
+			setTimeout(function () {
+
+				document.getElementById("copynotif").innerHTML = "";
+
+				document.getElementById("copynotif").classList.remove('disp')
+
+			}, 5000);
+
+		}
+
+	</script>
+
+	<script>
+
+
+
+	</script>
+
+	<script>
+
+		/**
+
+		 * https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API/Multiple_items
+
+		 * https://developer.mozilla.org/en-US/docs/Web/API/Document/drag_event
+
+		 * https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer
+
+		 */
+
+		var drag_items = document.getElementsByClassName('browser_drag_item');
+
+		var img = new Image();
+
+		img.src = 'advmp-web.png';
+
+
+
+		const pos = 30;
+
+		for (i = 0; i < drag_items.length; i++) {
+
+			let item = drag_items[i];
+
+			item.draggable = true;
+
+
+
+			item.addEventListener("dragstart", e => {
+
+
+
+				e.dataTransfer.setDragImage(img, pos, pos);
+
+				e.dataTransfer.setData("text/uri-list", item.href);
+
+			});
+
+
+
+			item.addEventListener("dragend", e => item.blur());
+
+			item.addEventListener("click", e => e.preventDefault());
+
+		}
+
+
+
+		function editcName() {
+
+			var c = prompt("Please enter church", getCookie('churchname'));
+
+
+
+			if (c != null) {
+
+				//alert(c)
+
+				setCookie('churchname', c)
+
+				alert("Church changed to: " + c + "!");
+
+				setFBTexts();
+
+			}
+
+		}
+
+	</script>
+
+	<script>
+
+		function toggleSettings() {
+
+			var element = document.getElementById("setting-modal");
+
+			element.classList.toggle("closed");
+
+			document.getElementById('main-color').readOnly = false;
+
+			document.getElementById('main-color-2').readOnly = false;
+
+			document.getElementById('secondary-color').readOnly = false;
+
+			document.getElementById('secondary-color-2').readOnly = false;
+
+			document.getElementById('text-color').readOnly = false;
+
+		}
+
+
+
+		function setTheColors() {
+
+
+
+			if (document.getElementById("setting-modal").classList.contains("closed")) {
+
+				if (document.getElementById("ltype_").value == "" || document.getElementById("ltype_").value == "redorange") {
+
+					document.getElementById('main-color').value = ("#4F0000");
+
+					document.getElementById('main-color-2').value = ("#3E0000");
+
+					document.getElementById('secondary-color').value = ("#F7941D");
+
+					document.getElementById('secondary-color-2').value = ("#D67500");
+
+					document.getElementById('text-color').value = ("#FFFFFF");
+
+					//document.getElementById('text-color').jscolor.fromString("#FFFFFF");			
+
+					setCookie('main-color', 'main-color')
+
+					setCookie('main-color-2', 'main-color-2')
+
+					setCookie('secondary-color', 'secondary-color')
+
+					setCookie('secondary-color-2', 'secondary-color-2')
+
+					setCookie('text-color', 'text-color')
+
+				} else if (document.getElementById("ltype_").value == "bluegold") {
+
+					document.getElementById('main-color').value = ("#0b2134");
+
+					document.getElementById('main-color-2').value = ("#05111d");
+
+					document.getElementById('secondary-color').value = ("#ae822c");
+
+					document.getElementById('secondary-color-2').value = ("#8c661c");
+
+					document.getElementById('text-color').value = ("#FFFFFF");
+
+					setCookie('main-color', 'main-color')
+
+					setCookie('main-color-2', 'main-color-2')
+
+					setCookie('secondary-color', 'secondary-color')
+
+					setCookie('secondary-color-2', 'secondary-color-2')
+
+					setCookie('text-color', 'text-color')
+
+				} else if (document.getElementById("ltype_").value == "custom") {
+
+
+
+					var mc = getCookie("main-color");
+
+					document.getElementById('main-color').value = (mc);
+
+					document.getElementById('main-color-2').value = (getCookie("main-color-2"));
+
+					document.getElementById('secondary-color').value = (getCookie("secondary-color"));
+
+					document.getElementById('secondary-color-2').value = (getCookie("secondary-color-2"));
+
+					document.getElementById('text-color').value = (getCookie("text-color"));
+
+					// document.getElementById("main-color").value=getCookie("main-color");
+
+					// document.getElementById("main-color-2").value=getCookie("main-color-2");
+
+					// document.getElementById("secondary-color").value=getCookie("secondary-color");
+
+					// document.getElementById("secondary-color-2").value=getCookie("secondary-color-2");
+
+					// document.getElementById("text-color").value=getCookie("text-color");
+
+				} else {
+
+					//custom values
+
+					var theValue = document.getElementById("ltype_").value;
+
+					var theX_ = theValue.replace("theme_", "")
+
+					var theX = theX_ * 1;
+
+					var savedtheme = getCookie("themelist");
+
+					var themeArray = savedtheme.split("\n")
+
+					var themeX = themeArray[theX].split("|||");
+
+					document.getElementById('main-color').value = themeX[2];
+
+					document.getElementById('main-color-2').value = themeX[3];
+
+					document.getElementById('secondary-color').value = themeX[4];
+
+					document.getElementById('secondary-color-2').value = themeX[5];
+
+					document.getElementById('text-color').value = themeX[6];
+
+					setCookie('main-color', 'main-color')
+
+					setCookie('main-color-2', 'main-color-2')
+
+					setCookie('secondary-color', 'secondary-color')
+
+					setCookie('secondary-color-2', 'secondary-color-2')
+
+					setCookie('text-color', 'text-color')
+
+				}
+
+			} else {
+
+
+
+
+
+				if (document.getElementById("ltype_").value == "" || document.getElementById("ltype_").value == "redorange") {
+
+					document.getElementById('main-color').jscolor.fromString("#4F0000");
+
+					document.getElementById('main-color-2').jscolor.fromString("#3E0000");
+
+					document.getElementById('secondary-color').jscolor.fromString("#F7941D");
+
+					document.getElementById('secondary-color-2').jscolor.fromString("#D67500");
+
+					document.getElementById('text-color').jscolor.fromString("#FFFFFF");
+
+					setCookie('main-color', 'main-color')
+
+					setCookie('main-color-2', 'main-color-2')
+
+					setCookie('secondary-color', 'secondary-color')
+
+					setCookie('secondary-color-2', 'secondary-color-2')
+
+					setCookie('text-color', 'text-color')
+
+				} else if (document.getElementById("ltype_").value == "bluegold") {
+
+					document.getElementById('main-color').jscolor.fromString("#0b2134");
+
+					document.getElementById('main-color-2').jscolor.fromString("#05111d");
+
+					document.getElementById('secondary-color').jscolor.fromString("#ae822c");
+
+					document.getElementById('secondary-color-2').jscolor.fromString("#8c661c");
+
+					document.getElementById('text-color').jscolor.fromString("#FFFFFF");
+
+					setCookie('main-color', 'main-color')
+
+					setCookie('main-color-2', 'main-color-2')
+
+					setCookie('secondary-color', 'secondary-color')
+
+					setCookie('secondary-color-2', 'secondary-color-2')
+
+					setCookie('text-color', 'text-color')
+
+				} else if (document.getElementById("ltype_").value == "custom") {
+
+					//document.getElementById('custom-colors').pointerEvents= "auto";
+
+					var mc = getCookie("main-color");
+
+					document.getElementById('main-color').value = (mc);
+
+					document.getElementById('main-color-2').value = (getCookie("main-color-2"));
+
+					document.getElementById('secondary-color').jscolor.fromString(getCookie("secondary-color"));
+
+					document.getElementById('secondary-color-2').jscolor.fromString(getCookie("secondary-color-2"));
+
+					document.getElementById('text-color').jscolor.fromString(getCookie("text-color"));
+
+					// document.getElementById("main-color").value=getCookie("main-color");
+
+					// document.getElementById("main-color-2").value=getCookie("main-color-2");
+
+					// document.getElementById("secondary-color").value=getCookie("secondary-color");
+
+					// document.getElementById("secondary-color-2").value=getCookie("secondary-color-2");
+
+					// document.getElementById("text-color").value=getCookie("text-color");
+
+					document.getElementById('main-color').readOnly = false;
+
+					document.getElementById('main-color-2').readOnly = false;
+
+					document.getElementById('secondary-color').readOnly = false;
+
+					document.getElementById('secondary-color-2').readOnly = false;
+
+					document.getElementById('text-color').readOnly = false;
+
+				} else {
+
+					//custom values
+
+					var theValue = document.getElementById("ltype_").value;
+
+					var theX_ = theValue.replace("theme_", "")
+
+					var theX = theX_ * 1;
+
+					var savedtheme = getCookie("themelist");
+
+					var themeArray = savedtheme.split("\n")
+
+					var themeX = themeArray[theX].split("|||");
+
+
+
+					document.getElementById('main-color').jscolor.fromString(themeX[2]);
+
+					document.getElementById('main-color-2').jscolor.fromString(themeX[3]);
+
+					document.getElementById('secondary-color').jscolor.fromString(themeX[4]);
+
+					document.getElementById('secondary-color-2').jscolor.fromString(themeX[5]);
+
+					document.getElementById('text-color').jscolor.fromString(themeX[6]);
+
+					setCookie('main-color', 'main-color')
+
+					setCookie('main-color-2', 'main-color-2')
+
+					setCookie('secondary-color', 'secondary-color')
+
+					setCookie('secondary-color-2', 'secondary-color-2')
+
+					setCookie('text-color', 'text-color')
+
+				}
+
+			}
+
+			if (document.getElementById("ltype_").value == "" || document.getElementById("ltype_").value == "redorange" ||
+
+				document.getElementById("ltype_").value == "bluegold") {
+
+				document.getElementById("addnewtheme").classList.add("closed");
+
+				document.getElementById("deletetheme").classList.add("closed");
+
+			} else if (document.getElementById("ltype_").value == "custom") {
+
+				document.getElementById("addnewtheme").classList.remove("closed");
+
+				document.getElementById("deletetheme").classList.add("closed");
+
+			} else {
+
+				document.getElementById("addnewtheme").classList.add("closed");
+
+				document.getElementById("deletetheme").classList.remove("closed");
+
+			}
+
+
+
+
+
+		}
+
+
+
+		function addnewtheme() {
+
+			var themename = prompt("Please enter your name", "");
+
+			if (themename === null) {
+
+				return; //break out of the function early
+
+			}
+
+			if (themename != "") {
+
+				var savedtheme = getCookie("themelist");
+
+				var themecount = 0
+
+				var fchar = "";
+
+				if (savedtheme == "") {
+
+
+
+				} else {
+
+					fchar = "\n";
+
+					themecount = savedtheme.split("\n").length;
+
+				}
+
+				var mainc = document.getElementById('main-color').value;
+
+				var main2 = document.getElementById('main-color-2').value;
+
+				var secc = document.getElementById('secondary-color').value;
+
+				var sec2 = document.getElementById('secondary-color-2').value;
+
+				var txtc = document.getElementById('text-color').value;
+
+				var newtheme = savedtheme + fchar + themecount + "|||" + themename + "|||" + mainc + "|||" + main2 + "|||" +
+
+					secc + "|||" + sec2 + "|||" + txtc
+
+				setCookie('themelist', newtheme)
+
+				addtoOptions();
+
+			}
+
+		}
+
+
+
+		function deletetheme() {
+
+			if (confirm('Are you sure you want to delete this theme?')) {
+
+				var themelist = getCookie("themelist")
+
+				var theValue = document.getElementById("ltype_").value;
+
+				var theX_ = theValue.replace("theme_", "")
+
+				var theX = theX_ * 1;
+
+				var newlist = ""
+
+				var themelist_n = themelist.split('\n');
+
+				var x = 0;
+
+				var xcount = 0;
+
+				while (x < themelist_n.length) {
+
+					if (x != theX) {
+
+						if (newlist != "") {
+
+							newlist += "\n";
+
+						}
+
+						var splitList = themelist_n[x].split("|||")
+
+						newlist += xcount + "|||" + splitList[1] + "|||" + splitList[2] + "|||" + splitList[3] + "|||" +
+
+							splitList[4] + "|||" + splitList[5] + "|||" + splitList[6]
+
+						xcount += 1;
+
+					}
+
+					x += 1;
+
+				}
+
+				setCookie('themelist', newlist)
+
+				addtoOptions()
+
+			} else {
+
+
+
+			}
+
+		}
+
+
+
+		function addtoOptions() {
+
+			var thelist = document.getElementById("ltype_");
+
+
+
+			if (getCookie("autoChange-Theme") == "true") {
+
+				var today = new Date();
+
+				//automated theme vesper,midweek,sabbath
+
+				var dateval = "n/a"
+
+				if (today.getDay() == 3) {
+
+					dateval = "Midweek"
+
+				} else if (today.getDay() == 5) {
+
+					dateval = "Vesper"
+
+				} else if (today.getDay() == 6) {
+
+					dateval = "Sabbath"
+
+				}
+
+			}
+
+
+
+			var optX = thelist.length - 1;
+
+			while (optX >= 4) {
+
+				thelist.remove(optX);
+
+				optX -= 1
+
+			}
+
+
+
+			var tmVal = "";
+
+			var savedtheme = getCookie("themelist");
+
+			var themecount = savedtheme.split("\n").length
+
+			var themeArray = savedtheme.split("\n")
+
+			if (themecount > 0 && themeArray[0].length != 0) {
+
+				if (thelist.length > 0) {
+
+					thelist.remove(thelist.length - 1);
+
+				}
+
+				var x = 0
+
+				while (x < themecount) {
+
+					var theme_item = themeArray[x];
+
+					var theme_item_array = theme_item.split("|||")
+
+					var option = document.createElement("option");
+
+					option.text = theme_item_array[1];
+
+					option.value = "theme_" + theme_item_array[0];
+
+					if (theme_item_array[1] == dateval) {
+
+						console.log(theme_item_array[1])
+
+						tmVal = "theme_" + theme_item_array[0];
+
+					}
+
+					thelist.add(option);
+
+					x += 1
+
+				}
+
+				if (tmVal != "" && getCookie("autoChange-Theme") == "true") {
+
+					if (thelist.value.includes(tmVal) == false)
+
+						thelist.value = tmVal;
+
+					setCookie('theme', 'ltype_');
+
+				}
+
+			}
+
+			optionCustom = document.createElement("option");
+
+			optionCustom.text = "Custom...";
+
+			optionCustom.value = "custom";
+
+			thelist.add(optionCustom);
+
+
+
+
+
+		}
+
+		addtoOptions();
+
+
+
+		function show_hideSections(id) {
+
+			document.getElementById(id).classList.toggle("section-show");
+
+		}
+
+	</script>
+
+	<script>
+
+		var screenTxt = new BroadcastChannel('screentext-channel');
+
+
+
+		function function_send_screenText(pos) {
+
+			text_to_send = $("#display-screentext:text").val();
+
+			if (text_to_send != "") {
+
+				screenTxt.postMessage(text_to_send + "|" + pos + "|" + "displaytext"); /* send */
+
+			}
+
+
+
+		};
+
+
+
+		function function_hide_screenText() {
+
+			text_to_send = "";
+
+			screenTxt.postMessage(text_to_send + "|" + "none" + '|' + 'displaytext'); /* send - only last parameter*/
+
+		}
+
+
+
+		function setSourceTemplate() {
+
+			var SourceTemplateChannel = new BroadcastChannel('source-template-channel');
+
+			template_to_send = getCookie('template');
+
+			name_to_send = $("#lower-thirds-name:text").val();
+
+			function_to_send = $("#lower-thirds-function:text").val();
+
+
+
+			if (template_to_send != "") {
+
+				SourceTemplateChannel.postMessage(name_to_send + "|" + function_to_send + "|" + template_to_send); /* send */
+
+			}
+
+		}
+
+
+
+		//copy to clipboard
+
+		function copyTextToClipboard(text, iClass) {
+
+
+
+			var textArea = document.createElement("textarea");
+
+
+
+			// Place in the top-left corner of screen regardless of scroll position.
+
+			textArea.style.position = 'fixed';
+
+			textArea.style.top = 0;
+
+			textArea.style.left = -10000;
+
+			textArea.value = text;
+
+
+
+			document.body.appendChild(textArea);
+
+			textArea.focus();
+
+			textArea.select();
+
+
+
+			try {
+
+				var successful = document.execCommand('copy');
+
+				var msg = successful ? 'successful' : 'unsuccessful';
+
+				console.log('Copying text command was ' + msg);
+
+			} catch (err) {
+
+				console.log('Oops, unable to copy');
+
+			}
+
+
+
+			document.body.removeChild(textArea);
+
+		}
+
+
+
+
+
+		var copyBtn = document.querySelector('.copy_speakerCSS')
+
+
+
+
+
+		copyBtn.addEventListener('click', function (event) {
+
+			copyTextToClipboard(
+
+				".speaker-loc {\n    margin-left: 82px;\n}\ndiv#name-container {\n    font-size: 31px;\n    line-height: 120%;\n}\n.speaker-name {\n    font-weight: bold;\n    font-size: 31px;\n}\ndiv#function {\n    font-style: italic;\n    color: #3e3e3e;\n    margin-left: 20px;\n    font-size:20px;\n}",
+
+				"copy_speakerCSS");
+
+		});
+
+	</script>
+
+	<script>
+
+
+
+
+
+
+
+		document.getElementById("ltype_").value = getCookie('theme');
+
+
+
+		function displayTemplate() {
+
+			document.getElementById("theme_").innerHTML = "<span class='t-template'>" + $("#lt_template_ option:selected").text() + "</span>" +
+
+				"<span class='t-theme'>(" + document.getElementById('ltype_').options[document.getElementById(
+
+					'ltype_').selectedIndex].text + ")</span>";
+
+		}
+
+		displayTemplate();
+
+
+
+		if (getCookie('autoChange-Theme') == "true") {
+
+			document.getElementById("autoChangeTheme").checked = true;
+
+		}
+
+
+
+		setTheColors();
+
+	</script>
+
+	<script>
+
+		$(function () {
+
+			$("#template-list").load("template-list.html");
+
+		});
+
+	</script>
+
+	<style>
+		:root {
+
+			--lt-main-color: #4f0000;
+
+			--lt-main-color-2: #3e0000;
+
+			--lt-secondary-color: #f7941d;
+
+			--lt-secondary-color-2: #d67500;
+
+			--lt-text-color: #fff;
+
+		}
+	</style>
+
+
+
+	<script src="sunset-script.js"></script>
+
+
+
+
+
+
+
+</body>
+
+
+
+</html>

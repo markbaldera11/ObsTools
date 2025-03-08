@@ -1,0 +1,232 @@
+
+<!-- saved from url=(0072)https://media.laa.edu.ph/obs-tools/lower%20thirds/templates/lt-full.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><link rel="stylesheet" href="./lt-full_files/css">
+<link rel="stylesheet" href="./lt-full_files/css">
+</head><body><div class="lowerthird-container">
+
+<section id="lt-full" class="m_lowerthird">
+
+  
+
+    <div id="name-container" class="name-container">
+
+        <div id="m-name-inner" class="m-name-inner">Name</div>
+
+    </div>
+
+    <div class="m-separator"></div>
+
+    <div id="function-container" class="function-container">
+
+        <div id="m-function-inner" class="m-function-inner">Function</div>
+
+    </div>
+
+    
+
+  </section></div>
+
+
+
+<script>
+
+    
+
+
+    // Set the CSS variable
+    document.getElementById('m-name-inner').style.setProperty('--font', getCookie("nameFont"));
+	document.getElementById('m-function-inner').style.setProperty('--font', getCookie("functionFont"));
+    
+</script>
+
+<style>
+
+  div#lower-third * {
+
+    color: var(--lt-text-color);
+
+  }
+
+  body{
+
+    margin:0!important;
+
+  }
+
+  div#lower-third {
+
+    width: 100%;
+
+    height: 100%;
+
+    bottom: 0 !important;
+
+    display: flex !important
+
+;
+
+    position: relative !important;
+
+    align-content: center;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+section#lt-full {
+
+    align-items: center;
+
+}
+
+div#m-name-inner{
+
+    font-size: 80px;
+
+    font-family: var(--name-font);
+
+    font-weight: 800;
+
+    line-height: .9em;
+
+    position: relative;
+
+    right: -100vw;
+    transition: all 600ms;
+    text-transform: uppercase;
+    color:var(--lt-main-color);
+}
+
+div#name-container {
+
+    position: relative;
+
+    width: 60%;
+
+    text-align: right;    
+    padding:0 40px;
+    align-content: center;
+
+}
+
+div#function-container {
+
+    width: 40%;
+
+    font-size: 50px;
+
+    align-content: center;    padding:40px;
+
+    position: relative;
+
+}
+.lowerthird-container {
+    width: 100%;
+}
+.m-separator {
+
+    width: 5px;
+
+    background: var(--lt-secondary-color-2);
+
+    transform: rotate(15deg);
+
+    height: 0;
+    transition: 300ms;
+}
+
+
+
+div#m-function-inner {
+    font-family: var(--function-font);
+    opacity: 0;
+    position: relative;
+    top: 20px;
+    transition-duration: 300ms;
+    color:var(--lt-main-color-2);
+}
+
+.m-separator:before {
+
+content: '';
+
+position: absolute;
+
+height: 150vh;
+
+width: 100vh;
+
+background: var(--lt-secondary-color);
+
+top: -50vh;
+
+left: 4px;
+
+}
+
+div#lower-third{
+    background:var(--background-image);
+    background-size: 1920px 1080px;
+    background-position: center;
+}
+.lowerthird-container {
+    overflow: hidden;
+    background: var(--lt-secondary-color);
+}
+/*********ANIMATION PROPERTIES**************/
+
+
+
+.animateIn div#m-name-inner {
+
+    
+    transition-delay: 700ms;
+    right: 0px;
+
+}
+.animateIn .m-separator{
+    height: 200px;
+    transition-delay: 500ms;
+}
+
+.animateIn div#m-function-inner {
+    opacity: 1;
+    top: 0;
+    transition-delay: 1200ms;
+}
+
+div#lower-third.animateOut {
+    opacity: 1;
+    transition: 300ms;
+    width: 0;
+    overflow: hidden;
+    transition-delay: 1200ms;
+}
+div#lower-third.animateIn {
+    opacity: 1;
+    width: 100%;
+    overflow: hidden;
+}
+
+.animateOut div#m-name-inner {
+
+    
+transition-delay: 0;
+
+
+}
+.animateOut .m-separator{
+
+transition-delay: 300ms;
+}
+
+.animateOut div#m-function-inner {
+
+transition-delay: 600ms;
+}
+
+</style>
+
+</body></html>

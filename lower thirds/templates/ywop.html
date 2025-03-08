@@ -1,0 +1,141 @@
+
+<!-- saved from url=(0069)https://media.laa.edu.ph/obs-tools/lower%20thirds/templates/ywop.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><link rel="stylesheet" href="./ywop_files/css">
+
+<link href="./ywop_files/css(1)" rel="stylesheet">
+<style>
+    /*main CSS*/
+
+    section#ywop {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    width: calc(100vw + 50px);
+}
+div#lower-third {
+    margin-left: 0;
+    left: -2em!important;
+}
+    #ywop .youth {
+    font-size: 96.24px;
+    font-family: 'Bebas Neue';
+    font-weight: bold;
+    color: #180f20;
+    line-height: .7em;
+}
+#ywop .line-2 .wk {
+    font-family: 'bebas neue';
+    font-weight:200;
+    font-size: 34.090px;
+
+    display: inline-block;
+    color: #180f20;
+}
+#ywop .line-2 span.prayer {
+    font-size: 57.39px;
+    font-weight: bold;
+    font-family: 'Montserrat';
+    color: #a1101f;
+
+}
+#ywop .line-2 {
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+    line-height: 2.5em;
+}
+#ywop .ydate {
+    font-size: 18.47px;
+    font-family: 'bebas neue';
+    font-weight: 400;
+    margin-left: 86px;
+}
+#ywop .title-box {
+    position: relative;
+    background: #fff;
+    padding-top: 25px;
+    padding-left: 25px;
+    padding-bottom: 15px;
+    padding-right: 15px;
+    border-radius: 0 20px 20px 0;
+    box-shadow: 1px 1px 15px 0px rgb(0 0 0 / 75%);
+    -webkit-box-shadow: 1px 1px 15px 0px rgb(0 0 0 / 75%);
+    -moz-box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.75);
+    z-index: 2;
+}
+
+#ywop div#logo {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+}
+#ywop div#m-name-inner {
+    font-family: 'bebas neue';
+    font-weight: bolder;
+    font-size: 50px;
+    line-height: 1em;
+}
+div#m-function-inner {
+    font-family: 'bebas neue';
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1em;
+}
+#ywop .content {
+    position: relative;
+    margin-bottom: 15px;
+    margin-left: 0px;
+    background: #a1101f;
+    padding: 20px 30px 20px 60px;
+    border-radius: 0px 50px 15px 0px;
+    flex-grow: 1;
+}
+    /*CSS styling & transition when hidden */
+    .animateOut .title-box{
+        opacity: 0;
+        transition: opacity .5s ease, left 2s ease-in;
+    transition-delay: .5s;
+    left: -200px;
+    }
+
+
+    /*CSS styling & transition when shown */
+    .animateIn .title-box{
+        opacity: 1;
+        transition: opacity 1s ease-out, left 2s ease-out;
+    transition-delay: 0s;
+    left: 0;
+    }
+    .animateOut #ywop .content{
+        opacity: 0;
+        transform: scaleX(0);
+        transition: all 1s;
+        transition-delay: 0s;
+        left: -80vw;
+    }
+    .animateIn #ywop .content{
+        opacity: 1;
+        transform: scale(1);
+        transition: all 3s;
+        transition-delay: 1s;
+        left: 0;
+        
+    }
+</style>
+</head><body><section id="ywop" class="m_lowerthird">
+    <div class="title-box">
+        <div class="youth">YOUTH</div>
+        <div class="line-2"><span class="wk">Week of</span><span class="prayer">Prayer</span></div>
+        <div class="ydate">March 18-25, 2023</div>
+        <div id="logo"><img src="./ywop_files/gyd logo.png" width="80"></div>
+    </div>
+    <div class="content">
+        <div id="m-name-inner" class="m-name-inner">
+            Name
+        </div>
+        <div id="m-function-inner" class="m-function-inner">
+            Function
+        </div>
+    </div>
+
+</section></body></html>

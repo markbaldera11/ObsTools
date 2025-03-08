@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from media.laa.edu.ph/obs-tools/lower thirds/browser-source-speaker.html?screensize=720p&layer-name=Speaker%20720p&layer-width=1280&layer-height=420 by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Feb 2025 11:43:09 GMT -->
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link rel="stylesheet" href="../common/css/style-001.css">
+    <title>Receiver demo</title>
+	<script>
+		
+		var bc = new BroadcastChannel('obs-speaker-display');
+		bc.onmessage = function (ev) {
+			var element = document.getElementsByTagName("body")[0];
+  			
+				
+			if( ev.data==""){
+				
+			document.getElementById("name").innerHTML = "";
+			document.getElementById("function").innerHTML ="";
+			}else{
+				received_data=ev.data.split("|");
+			document.getElementById("name").innerHTML = "Speaker: <span class='o'>" + received_data[0] + "</span>";
+			document.getElementById("function").innerHTML = received_data[1];
+			}
+			
+			
+			};
+		
+	</script>
+  </head>
+  <body class="browser-source speaker-display" style="font-family: sans-serif;  ">
+	<script>
+		const queryString = window.location.search;
+
+const urlParams = new URLSearchParams(queryString);
+
+const size = urlParams.get('screensize')
+var i=window.location.href
+console.log(window.location.href.replace(queryString,""));
+	var element = document.getElementsByTagName("body")[0];
+	element.classList.add("s"+size);
+
+
+	</script>
+	<div id="display-speaker"class="">	
+				<div class="speaker-loc">
+					<div id="name"></div>
+					<div id="function"></div>
+				</div>			
+		</div>
+	</div>
+	<style>
+	
+	div#name {
+    font-size: 31px;
+    line-height: 120%;
+}
+		div#name .o {
+    display: block;
+    font-weight: 700;
+    
+}
+.speaker-loc {
+    margin-left: 78px;
+}
+div#function {
+   
+    font-style: italic;
+	color: #3e3e3e;
+	margin-left: 20px;
+}
+/*font sizes*/
+.s720p div#name{
+	font-size: 31px;
+}
+.s720p div#name .o{
+	font-size: 40px;
+}
+.s720p div#function{
+	font-size: 30px;
+}
+.s720p .speaker-loc {
+    margin-left: 82px;
+}
+
+.s1080p div#name{
+	font-size: 51px;
+}
+.s1080p div#name .o{
+	font-size: 60px;
+}
+.s1080p div#function{
+	font-size: 50px;
+}
+.s1080p .speaker-loc {
+    margin-left: 132px;
+}
+		
+	</style>
+  </body>
+
+<!-- Mirrored from media.laa.edu.ph/obs-tools/lower thirds/browser-source-speaker.html?screensize=720p&layer-name=Speaker%20720p&layer-width=1280&layer-height=420 by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Feb 2025 11:43:09 GMT -->
+</html>

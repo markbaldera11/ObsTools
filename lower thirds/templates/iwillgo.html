@@ -1,0 +1,47 @@
+
+<!-- saved from url=(0072)https://media.laa.edu.ph/obs-tools/lower%20thirds/templates/iwillgo.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><style>
+    /*main CSS*/
+    #iwillgo{
+        display: block;
+    }
+
+
+    /*CSS styling & transition when hidden */
+    .animateOut #iwillgo{
+        opacity: 0;
+        transition: opacity .5s;
+    transition-delay: 0s;
+    }
+
+
+    /*CSS styling & transition when shown */
+    .animateIn #iwillgo{
+        opacity: 1;
+        transition: opacity 2s;
+    transition-delay: 0s;
+    
+    }
+    .animateOut #iwillgo img{
+        opacity: 0;
+        transform: scale(0) rotate(-185deg);
+        transition: all .5s;
+        transition-delay: .2s;
+    }
+    .animateIn #iwillgo img{
+        opacity: 1;
+        transform: scale(1);
+        transition: all 3s;
+        transition-delay: 1s;
+    }
+</style>
+</head><body><section id="iwillgo" class="m_lowerthird">
+    <div id="logo"><img src="./iwillgohtml_files/IWILLGO.png" width="100"></div>
+    <div id="m-name-inner" class="m-name-inner">
+        Name
+    </div>
+    <div id="m-function-inner" class="m-function-inner">
+        Function
+    </div>
+
+</section></body></html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from media.laa.edu.ph/obs-tools/settings.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Feb 2025 11:43:08 GMT -->
+<head>
+	<script src="common/js/cookies.js"></script>
+	<title>Settings</title>
+	
+</head>
+<body>
+
+
+	<div id="theSettings">
+		<h1>Plugin Settings</h1>
+
+
+
+
+
+	<script src="common/js/jscolor.js"></script>
+
+
+
+
+
+	<script>
+	// Here we can adjust defaults for all color pickers on page:
+	jscolor.presets.default = {
+		palette: [
+			'#000000', '#7d7d7d', '#870014', '#ec1c23', '#ff7e26', '#fef100', '#22b14b', '#00a1e7', '#3f47cc', '#a349a4',
+			'#ffffff', '#c3c3c3', '#b87957', '#feaec9', '#ffc80d', '#eee3af', '#b5e61d', '#99d9ea', '#7092be', '#c8bfe7',
+		],
+		//paletteCols: 12,
+		//hideOnPaletteClick: true,
+		//width: 271,
+		//height: 151,
+		//position: 'right',
+		//previewPosition: 'right',
+		//backgroundColor: 'rgba(51,51,51,1)', controlBorderColor: 'rgba(153,153,153,1)', buttonColor: 'rgba(240,240,240,1)',
+	}
+	</script>
+
+
+
+<div class="vsections">
+	<h2>Current Date<button onclick="getCurrDate();setCurrDate();">View</button></h2>
+<ul>
+	<li><label>Font Family:
+		<select id="currDate_fontFam" onchange="setCurrDate()">
+			
+			<option value="sans-serif">Sans-Serif</option>
+			<option value="serif">Serif</option>
+			<option value="cursive">Cursive</option>
+			<option value="fantasy">Fantasy</option>
+			<option value="monospace">Monospace</option>
+		</select>
+
+	</label></li>
+	<li><label>Font Size: <input type="range" id="currDate_fontSize" oninput="setCurrDate()" min="20"></label></li>
+	<li><label>Font Weight:
+		<select id="currDate_fontWeight" onchange="setCurrDate()">
+			
+			<option value="lighter">Lighter</option>
+			<option value="normal">Normal</option>
+			<option value="bold">Bold</option>
+			<option value="bolder">Bolder</option>
+		</select>
+	</label></li>
+	<li><label>Color: <input value="000000" id="currDate_fontColor" data-jscolor="{}" oninput="setCurrDate()"></label></li>
+	
+	
+</ul>
+
+</div>
+<div class="vsections">
+	<h2>Sunset Table<button onclick="getSunset();setSunset();">View</button></h2>
+	<ul>
+		<li><label>Font Family:
+			<select id="sunset_fontFam" onchange="setSunset();">
+				
+				<option value="sans-serif">Sans-Serif</option>
+				<option value="serif">Serif</option>
+				<option value="cursive">Cursive</option>
+				<option value="fantasy">Fantasy</option>
+				<option value="monospace">Monospace</option>
+			</select>
+	
+		</label></li>
+		<li><label>Font Size: <input type="range" id="sunset_fontSize" oninput="setSunset()" min="20"></label></li>
+		<li><label>Font Weight:
+			<select id="sunset_fontWeight" onchange="setSunset()">
+				
+				<option value="lighter">Lighter</option>
+				<option value="normal">Normal</option>
+				<option value="bold">Bold</option>
+				<option value="bolder">Bolder</option>
+			</select>
+		</label></li>
+		<li><label>Color: <input value="000000" id="sunset_fontColor" data-jscolor="{}" oninput="setSunset()"></label></li>
+		
+		
+	</ul>
+</div>
+
+<label>BG Color: <input value="FFFFFF" id="_bgColor" data-jscolor="{}" oninput="document.getElementById('thePreview').style.backgroundColor=getInputVal('_bgColor');"></label>
+	</div>
+<div id="thePreview">
+	<div id="prev-cont">
+
+	</div>
+</div>
+
+<script>
+	function getCurrDate(){
+		var currDate_fontFam=getCookie('currDate_fontFam');
+		var currDate_fontSize=getCookie('currDate_fontSize');
+		var currDate_fontColor=getCookie('currDate_fontColor');
+		var currDate_fontWeight=getCookie('currDate_fontWeight');	
+		
+		document.getElementById("currDate_fontFam").value=currDate_fontFam
+		document.getElementById("currDate_fontSize").value=currDate_fontSize
+		document.getElementById("currDate_fontColor").value=currDate_fontColor
+		document.getElementById("currDate_fontWeight").value=currDate_fontWeight
+
+		document.getElementById("prev-cont").style.fontFamily=currDate_fontFam
+		document.getElementById("prev-cont").style.fontSize=currDate_fontSize
+		document.getElementById("prev-cont").style.color=currDate_fontColor
+		document.getElementById("prev-cont").style.fontWeight=currDate_fontWeight
+		//setCurrDate();
+		
+	}
+function setCurrDate(){
+		var options={year: 'numeric', month: 'long', day: 'numeric'};
+		var today=new Date();
+		var pStyle=document.getElementById("prev-cont").style
+		pStyle.fontFamily=getInputVal('currDate_fontFam')
+		pStyle.fontSize=getInputVal('currDate_fontSize') + "px"
+		pStyle.color=getInputVal('currDate_fontColor')
+		pStyle.fontWeight=getInputVal('currDate_fontWeight');
+		
+		document.getElementById("prev-cont").innerHTML=today.toLocaleDateString("en-US",options);
+
+		setCookie('currDate_fontFam','currDate_fontFam');
+		setCookie('currDate_fontSize','currDate_fontSize');
+		setCookie('currDate_fontColor','currDate_fontColor');
+		setCookie('currDate_fontWeight','currDate_fontWeight');		
+}
+
+function setSunset(){
+
+		var pStyle=document.getElementById("prev-cont").style
+		pStyle.fontFamily=getInputVal('sunset_fontFam')
+		pStyle.fontSize=getInputVal('sunset_fontSize') + "px"
+		pStyle.color=getInputVal('sunset_fontColor')
+		pStyle.fontWeight=getInputVal('sunset_fontWeight');
+		
+		
+		setCookie('sunset_fontFam','sunset_fontFam');
+		setCookie('sunset_fontSize','sunset_fontSize');
+		setCookie('sunset_fontColor','sunset_fontColor');
+		setCookie('sunset_fontWeight','sunset_fontWeight');		
+		_sunsetText();
+}
+function getInputVal(a){
+	return document.getElementById(a).value
+}
+</script>
+
+
+<style>
+div#theSettings {
+    width: 25%;
+    background: #f7f7f7;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-right: 1px solid #adadad;
+}
+
+
+div#thePreview {
+    position: absolute;
+    left: 25%;
+    top: 0;
+    width: 75%;
+    height: 100%;
+	padding: 30px;
+	box-sizing: border-box;
+}
+</style>
+<!--SUNSET-->
+<script>
+	
+	function getSunsetVal(){
+		var sunset_fontFam=getCookie('sunset_fontFam');
+		var sunset_fontSize=getCookie('sunset_fontSize');
+		var sunset_fontColor=getCookie('sunset_fontColor');
+		var sunset_fontWeight=getCookie('sunset_fontWeight');	
+
+		document.getElementById("sunset_fontFam").value=sunset_fontFam
+		document.getElementById("sunset_fontSize").value=sunset_fontSize
+		document.getElementById("sunset_fontColor").value=sunset_fontColor
+		document.getElementById("sunset_fontWeight").value=sunset_fontWeight
+		
+	}
+	function getSunset(){
+
+		getSunsetVal();
+
+		document.getElementById("prev-cont").style.fontFamily=sunset_fontFam
+		document.getElementById("prev-cont").style.fontSize=sunset_fontSize
+		document.getElementById("prev-cont").style.color=sunset_fontColor
+		document.getElementById("prev-cont").style.fontWeight=sunset_fontWeight
+
+		_sunsetText();
+	}
+function _sunsetText(){
+	document.getElementById("prev-cont").innerHTML ="Friday, March 26, 2021<span id='dtime'>6:00pm</span>";
+}
+
+</script>
+<style>
+  div#prev-cont {
+    font-size: 30px;
+    font-family: sans-serif;
+ 
+}
+span#dtime {
+    display: block;
+    font-style: italic;
+    font-weight: 700;
+}
+body {
+    text-align: center;
+}
+</style>
+
+<script>
+	getCurrDate();
+	getSunsetVal();
+</script>
+</body>
+
+<!-- Mirrored from media.laa.edu.ph/obs-tools/settings.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Feb 2025 11:43:08 GMT -->
+</html>

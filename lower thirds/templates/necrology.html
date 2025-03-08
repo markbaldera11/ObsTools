@@ -1,0 +1,131 @@
+
+<!-- saved from url=(0074)https://media.laa.edu.ph/obs-tools/lower%20thirds/templates/necrology.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><link rel="stylesheet" href="./necrology_files/css">
+<style>
+    /*main CSS*/
+    #necrology {
+        display: flex;
+    margin-bottom: 20px;
+}
+
+    #necrology #tlogo {
+        font-family: AdventSansFont;
+        color: var(--lt-text-color);
+    }
+
+    /*CSS styling & transition when hidden */
+    .animateOut #necrology {
+        opacity: 0;
+        transition: opacity .5s;
+        transition-delay: 0s;
+    }
+
+
+    /*CSS styling & transition when shown */
+    .animateIn #necrology {
+        opacity: 1;
+        transition: opacity 2s;
+        transition-delay: 0s;
+    }
+
+
+    div#tlogo {
+        width: 80px;
+        margin-right: 20px;
+    }
+    .l-content {
+    text-transform: uppercase;
+    align-self: flex-end;
+}
+div#m-name-inner {
+    font-size: 40px;
+    padding: 5px 15px;
+    background-color: #eebd43;
+    border-radius: 5px;
+    color: #511050;
+    line-height: 100%;
+    font-family: 'bebas neue';
+    font-weight:400;
+    transition: all .5s;
+    transition-delay: .2s;
+}
+span.sub {
+    font-family: 'robotocondensed-italic';
+    font-size: 30px;
+}
+div#m-function-inner {
+    font-size: 28px;
+    padding: 5px 15px;
+    font-family: 'robotocondensed-regular';
+    font-weight: 400;
+    background: #511050;
+    display: inline-block;
+    border-radius: 5px;
+    margin-top: -4px;
+    position: relative;
+    z-index: 0;
+    margin-left: 10px;
+}
+.animateOut div#m-name-inner {
+    bottom: 0;
+    position: relative;
+    transform: rotateX(-90deg);
+}
+.animateIn div#m-name-inner {
+    bottom: 0;
+    position: relative;
+    transform: rotateX(0);
+}
+.animateOut .function-container {
+    max-width: 0;
+    overflow: hidden;
+    
+}
+.animateIn .function-container {
+    max-width: 100%;
+    overflow: hidden;
+    transition-delay: .5s;
+}
+.function-container{
+    transition: all 1s;
+    position: relative;
+    white-space: nowrap;
+    
+}
+div#m-function-inner::after {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: -47px;
+    border-top: 60px solid #511050;
+    border-right: 40px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 46px solid #511050;
+    z-index: -3;
+}
+#necrology img {
+    /* padding: 10px;
+    background: #ffe29a;
+    border-radius: 50%;
+    transform: scale(1.2); */
+}
+</style>
+</head><body><section id="necrology" class="m_lowerthird">
+    <div id="tlogo">
+        <img src="./necrology_files/flower.svg">
+    </div>
+    <div class="l-content">
+        <div id="m-name-inner" class="m-name-inner">
+            Name
+        </div>
+        <div class="function-container">
+            <div id="m-function-inner" class="m-function-inner">
+                Function
+            </div>
+        </div>
+    </div>
+
+</section></body></html>
